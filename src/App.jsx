@@ -1,9 +1,18 @@
-import { useState } from 'react'
+import { MantineProvider } from "@mantine/core"
+import "@mantine/core/styles.css";
+
+
 import './App.css'
+import "./MobileNavbar"
+import { MobileNavbar } from "./MobileNavbar";
+
 
 function App() {
   return(
-    <h1>Ordinace HK</h1>
+    <MantineProvider>
+      <MobileNavbar>
+      </MobileNavbar>
+    </MantineProvider>
   )
 }
 
