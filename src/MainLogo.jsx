@@ -6,7 +6,7 @@ export function MainLogo (props) {
     return(
         <>
         <img src={mainLogoImg} className='mainLogo'></img>
-        <div style={{fontWeight: "bold"}}>
+        <div className='mainLogoDiv'>
         {props.children}
         </div>
         </>

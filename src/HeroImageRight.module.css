@@ -50,7 +50,7 @@
   }
   
   .description {
-    color: var(--mantine-color-white);
+    color: var(--mantine-color-grayscale);
     opacity: 0.75;
     max-width: rem(500px);
   

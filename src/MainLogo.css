@@ -3,3 +3,8 @@
     height: 28px;
     width: 28px;
 }
+
+.mainLogoDiv{
+    font-weight: bold;
+    color: var(--mantine-color-grayscale);
+}
