@@ -1,5 +1,5 @@
 import React from 'react';
-import mainLogoImg from "./assets/fp_logo.jpeg"
+import mainLogoImg from "./assets/fp_logo_ohk.png"
 import "./MainLogo.css"
 
 export function MainLogo (props) {

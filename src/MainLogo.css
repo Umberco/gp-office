@@ -5,6 +5,7 @@
 }
 
 .mainLogoDiv{
+    font-family: var(--mantine-font-family);
     font-weight: bold;
-    color: var(--mantine-color-grayscale);
+    color: #4FC4E3;
 }

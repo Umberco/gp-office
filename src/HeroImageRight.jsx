@@ -5,7 +5,7 @@ import classes from './HeroImageRight.module.css';
 export function HeroImageRight() {
   return (
     <div className={classes.root}>
-      <Container size="lg">
+      <Container size="md" px="xl">
         <div className={classes.inner}>
           <div className={classes.content}>
             <Title className={classes.title}>
