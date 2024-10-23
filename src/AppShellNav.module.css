@@ -4,8 +4,16 @@
     border-radius: var(--mantine-radius-md);
     font-family: var(--mantine-font-family);
     font-weight: 500;
+    color: black;
   
     @mixin hover {
       background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-6));
     }
+  }
+
+  .navLink {
+    text-decoration: none;
+    display: flex;
+    gap: 10px;
+    align-items: center;
   }

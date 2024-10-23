@@ -27,8 +27,7 @@ function ContactIcon(_a) {
       </div>
     </div>);
 }
-const MOCKDATA = [
-  //  { title: 'Ordinační hodiny', description: '7:00 – 15:00', icon: IconSun },
+const contactData = [
     { title: 'IČO', description: '123456789', icon: IconIdBadge2 },
     { title: 'Email', description: 'ordinacehk@gmail.com', icon: IconAt },
     { title: 'Telefon', description: '+420 777 888 999', icon: IconPhone },
@@ -37,6 +36,6 @@ const MOCKDATA = [
 ];
 
 export function ContactIconsList() {
-    const items = MOCKDATA.map((item, index) => <ContactIcon key={index} {...item}/>);
+    const items = contactData.map((item, index) => <ContactIcon key={index} {...item}/>);
     return <Stack>{items}</Stack>;
 };
