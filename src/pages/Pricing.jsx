@@ -1,9 +1,14 @@
 import React from 'react';
+import { Container } from '@mantine/core';
+
+import { PricingTable } from '../PricingTable';
 
 function Pricing() {
     return ( 
         <>
-        <h1>Pricing works</h1>
+        <Container px="xl" mb="">
+            <PricingTable></PricingTable>
+        </Container>
         </>
      );
 }

@@ -1,9 +1,13 @@
 import React from 'react';
 
+import { FaqSimple } from '../FaqSimple';
+
 function Appointment() {
-    return ( <>
-        <h1>Appointment works</h1>
-    </> );
+    return ( 
+    <>
+    <FaqSimple></FaqSimple>
+    </> 
+    );
 }
 
 export default Appointment;

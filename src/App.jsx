@@ -27,8 +27,9 @@ function App() {
         <Routes>
           <Route path="/" element={<AppShellNav />}>
             <Route index element={<Home />}/>
-            <Route path="news" element={<News />}/>
+            <Route path="news" element={<News />}>
               <Route path=":articleId" element={<Article />}/>
+            </Route>
             <Route path="appointment" element={<Appointment />}/>
             <Route path="pricing" element={<Pricing />}/>
             <Route path="services" element={<Services />}/>

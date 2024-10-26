@@ -1,9 +1,19 @@
 import React from 'react';
+import { Outlet } from 'react-router-dom';
+import { Container } from "@mantine/core"
+
+import { ArticlesCardsGrid } from '../ArticlesCardsGrid';
 
 function News() {
     return ( 
     <>
-    <h1>News works</h1>
+    <Container>
+    <Outlet/>
+    <ArticlesCardsGrid>
+
+    </ArticlesCardsGrid>
+
+    </Container>
     </> 
 );
 }
