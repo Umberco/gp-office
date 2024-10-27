@@ -14,7 +14,6 @@ const images = {
   "preventivni-programy": preventiveImg
 }
 
-
 function Article() {
     const {articleId} = useParams()
 
@@ -42,13 +41,10 @@ function Article() {
             console.log(data)
             setArticles(data)
     }
-
       
     return ( 
         <>
         <Container>       
-
-        
         {
             articles === null
             ? <Loader color='cyan' size="lg" type='dots'/>
@@ -65,7 +61,6 @@ function Article() {
             </>
         }
         </Container>
-        
         </>
      );
 }
