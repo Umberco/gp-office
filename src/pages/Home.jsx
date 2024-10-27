@@ -9,7 +9,7 @@ function Home() {
     return ( 
         <>
         <HeroImageRight></HeroImageRight>
-        <ArticlesCardsGrid></ArticlesCardsGrid>
+        <ArticlesCardsGrid home={true}></ArticlesCardsGrid>
         <Container py="lg">
             <GetInTouch>
 

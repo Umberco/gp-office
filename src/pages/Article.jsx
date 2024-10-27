@@ -1,40 +1,69 @@
 import React from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Container } from '@mantine/core';
+import { Container, Loader } from '@mantine/core';
 
-import covidImg from "../assets/fp_vaccination_covid.jpg"
+import { supabase } from '../Supabase';
+import covidImg from "../assets/fp_vaccination_covid.jpg";
+import newPatientsImg from "../assets/fp_new_patients.jpg";
+import preventiveImg from "../assets/fp_preventive_programs.jpg";
+
+const images = {
+  "ockovani-proti-covid-19": covidImg,
+  "prijimame-nove-pacienty": newPatientsImg,
+  "preventivni-programy": preventiveImg
+}
+
 
 function Article() {
     const {articleId} = useParams()
 
-    const article = {
-        title: 'Očkování proti COVID-19',
-        image: covidImg,
-        date: 'Září 9, 2022',
+    const  [articles, setArticles] = useState(null)
+
+    useEffect(
+        () => {
+            getArticles()
+        },
+        [articleId]
+    )
+
+    const getArticles = async () =>{
+        const {data, error} = await supabase
+            .from("articles")
+            .select()
+            .eq("slug", articleId)
+            .limit(1)
+            .single()
+
+            if (error !== null) {
+                console.log(error.message)
+                return
+            }
+            console.log(data)
+            setArticles(data)
     }
+
       
     return ( 
         <>
-        <Container>
-        <h1>{article.title}</h1>
-        <div style={{display: "flex"}}>
-        <div style={{flex: "1"}}>
-            <p>{article.date}</p>
-            <img src={covidImg} style={{width: "300px", height: "300px"}}/>
-            <p>{articleId}</p>
-        </div>
-        <p style={{flex: "1", paddingTop: "15px"}}>Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-            Quam recusandae blanditiis accusamus quas sit velit corrupti, 
-            beatae esse inventore culpa repellendus eius eos aut temporibus in obcaecati ducimus quod eveniet.
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-            Quam recusandae blanditiis accusamus quas sit velit corrupti, 
-            beatae esse inventore culpa repellendus eius eos aut temporibus in obcaecati ducimus quod eveniet.
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-            Quam recusandae blanditiis accusamus quas sit velit corrupti, 
-            beatae esse inventore culpa repellendus eius eos aut temporibus in obcaecati ducimus quod eveniet.
-        </p>
-        </div>
+        <Container>       
+
         
+        {
+            articles === null
+            ? <Loader color='cyan' size="lg" type='dots'/>
+            : <>
+            <h1>{articles.title}</h1>
+            <div style={{display: "flex", justifyContent: "center", alignItems: "flex-start"}}>
+                <div style={{flex: "1", paddingTop: "15px"}}>
+                    <img src={images[articles.slug]} style={{width: "350px", borderRadius: "10px"}}/>
+                </div>
+                <p style={{flex: "1", paddingTop: "15px"}}>
+                    {articles.body}
+                </p>
+            </div>
+            </>
+        }
         </Container>
         
         </>
