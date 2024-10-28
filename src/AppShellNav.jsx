@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { AppShell, Burger, Group, UnstyledButton, Container, Menu } from '@mantine/core';
+import { AppShell, Burger, Group, UnstyledButton, Container, Menu, Button } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import classes from './AppShellNav.module.css';
 
@@ -13,6 +13,7 @@ import {
   IconMessageCircle,
   IconTrash,
   IconArrowsLeftRight,
+  IconCircleArrowUp,
 } from '@tabler/icons-react';
 
 export function AppShellNav() {
@@ -76,7 +77,9 @@ export function AppShellNav() {
 
       </AppShell.Main>
 
-      <AppShell.Footer p="md" mt="md" ta="center">© Ordinace Hradecká s.r.o. MUDr. Tereza Hylmarová | vyrobil Ing. František Hylmar | Web používá technické cookies</AppShell.Footer>
+      <AppShell.Footer p="md" mt="md" ta="center">© Ordinace Hradecká s.r.o. MUDr. Tereza Hylmarová | vyrobil Ing. František Hylmar | Web používá technické cookies  
+        <Button component='a' href='#' bg="white"><IconCircleArrowUp size={30} color='#81D2ED'/></Button>
+      </AppShell.Footer>
     </AppShell>
   );
 }

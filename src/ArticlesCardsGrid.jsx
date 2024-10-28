@@ -20,7 +20,9 @@ export function ArticlesCardsGrid(home) {
 
     const  [articles, setArticles] = useState(null)
     var pathNews = "/"
+    var articlesCount = 9
     home ? pathNews = "/news/" : pathNews = "/"
+    home ? articlesCount = 3 : articlesCount = 21
 
     useEffect(
         () => {
@@ -34,6 +36,7 @@ export function ArticlesCardsGrid(home) {
             .from("articles")
             .select()
             .order("id", {ascending: true})
+            .limit(articlesCount)
 
             if (error !== null) {
                 console.log(error.message)
