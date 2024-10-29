@@ -60,7 +60,7 @@ function Article() {
     const [articles, setArticles] = useState(null)
     const [isEdited, setIsEdited] = useState(false)
     const [showInsert, setShowInsert] =  useState(false)
-    //const [hideInsertBtn, setHideInsertBtn] = useState(false)
+    const [hideInsertBtn, setHideInsertBtn] = useState(false)
 
     useEffect(
         () => {
@@ -100,9 +100,9 @@ function Article() {
     return ( 
         <>
         <Container>
-        {showInsert === false
-            ?<Button onClick={() => setShowInsert(true)} color='#4FC4E3' my="lg">Vložit nový článek</Button>
-            :<Button onClick={() => {setShowInsert(false); setIsEdited(false)}} color='red' my="lg">Zrušit</Button>
+        {hideInsertBtn === false
+            ?<Button onClick={() => {setShowInsert(true); setHideInsertBtn(true)}} color='#4FC4E3' my="lg">Vložit nový článek</Button>
+            :<Button onClick={() => {setShowInsert(false); setIsEdited(false); setHideInsertBtn(false)}} color='red' my="lg">Zrušit</Button>
         }
         {   
             showInsert === true
@@ -125,7 +125,7 @@ function Article() {
                     description={articles.description}
                     body={articles.body}
                 />
-                : <ArticleDetail article={articles} onEdit={() => {setIsEdited(true); setShowInsert(true)}}/>
+                : <ArticleDetail article={articles} onEdit={() => {setIsEdited(true); setHideInsertBtn(true)}}/>
               )
             
         }
