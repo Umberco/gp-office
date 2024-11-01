@@ -1,7 +1,7 @@
 import { TextInput, Textarea, Button, Group, Box } from '@mantine/core';
 import { useForm } from '@mantine/form';
 
-function ArticleForm({title, description, body, onSubmit}) {
+function ArticleForm({title, description, body, onSubmit, articleId}) {
   const form = useForm({
     initialValues: {
       title: title,
@@ -10,13 +10,13 @@ function ArticleForm({title, description, body, onSubmit}) {
     },
 
     validate: {
-      body: (value) => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
+      //body: (value) => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
     },
   });
 
   return (
     <Box sx={{ maxWidth: 300 }} mx="auto">
-      <form onSubmit={form.onSubmit((values) => console.log(values))}>
+      <form onSubmit={form.onSubmit((values) => {console.log(values); onSubmit({values, articleId})})}>
         <TextInput
           withAsterisk
           label="Název"
@@ -40,7 +40,7 @@ function ArticleForm({title, description, body, onSubmit}) {
 
 
         <Group position="right" mt="md">
-          <Button type="submit" onSubmit={() => onSubmit()} color='#4FC4E3'>Vložit</Button>
+          <Button type="submit" color='#4FC4E3'>Vložit</Button>
         </Group>
       </form>
     </Box>

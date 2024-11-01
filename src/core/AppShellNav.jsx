@@ -3,7 +3,7 @@ import { AppShell, Burger, Group, UnstyledButton, Container, Menu, Button } from
 import { useDisclosure } from '@mantine/hooks';
 import classes from './AppShellNav.module.css';
 
-import { MainLogo } from './MainLogo';
+import { MainLogo } from '../index/MainLogo';
 import { Outlet, Link } from 'react-router-dom';
 
 import {
@@ -77,7 +77,7 @@ export function AppShellNav() {
 
       </AppShell.Main>
 
-      <AppShell.Footer p="md" mt="md" ta="center">© Ordinace Hradecká s.r.o. MUDr. Tereza Hylmarová | vyrobil Ing. František Hylmar | Web používá technické cookies  
+      <AppShell.Footer p="md" mt="md" ta="center">© Ordinace Hradecká s.r.o. MUDr. Tereza Hylmarová | vyrobil Ing. František Hylmar 
         <Button component='a' href='#' bg="white"><IconCircleArrowUp size={30} color='#81D2ED'/></Button>
       </AppShell.Footer>
     </AppShell>

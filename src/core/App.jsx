@@ -11,13 +11,14 @@ import "@mantine/core/styles.css";
 import './App.css'
 import "./AppShellNav"
 import { AppShellNav } from "./AppShellNav";
-import Home from "./pages/Home";
-import News from "./pages/News";
-import Appointment from "./pages/Appointment";
-import Pricing from "./pages/Pricing";
-import Services from "./pages/Services";
-import Contact from "./pages/Contact";
-import Article from "./pages/Article";
+import Home from "../pages/Home";
+import News from "../pages/News";
+import Appointment from "../pages/Appointment";
+import Pricing from "../pages/Pricing";
+import Services from "../pages/Services";
+import Contact from "../pages/Contact";
+import Article from "../pages/Article";
+import Admin from "../pages/Admin"
 
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
             <Route path="pricing" element={<Pricing />}/>
             <Route path="services" element={<Services />}/>
             <Route path="contact" element={<Contact />}/>
+            <Route path="admin" element={<Admin/>}/>
           </Route>
         </Routes>
       </BrowserRouter>

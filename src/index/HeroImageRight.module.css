@@ -2,7 +2,7 @@
     background-color: white;
     background-size: cover;
     background-position: center;
-    background-image: url("assets/fp_hero_bg.jpg");
+    background-image: url("../assets/fp_hero_bg.jpg");
     padding-top: calc(var(--mantine-spacing-xl) * 3);
     padding-bottom: calc(var(--mantine-spacing-xl) * 3);
   }

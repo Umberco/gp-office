@@ -1,4 +1,4 @@
-var __rest = (this && this.__rest) || function (s, e) {
+/* var __rest = (this && this.__rest) || function (s, e) {
     var t = {};
     for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
         t[p] = s[p];
@@ -8,12 +8,12 @@ var __rest = (this && this.__rest) || function (s, e) {
                 t[p[i]] = s[p[i]];
         }
     return t;
-};
+}; */
 import { Text, Box, Stack, rem } from '@mantine/core';
 import { IconIdBadge2, IconPhone, IconMapPin, IconAt } from '@tabler/icons-react';
 import classes from './ContactIcons.module.css';
-function ContactIcon(_a) {
-    var { icon: Icon, title, description } = _a, others = __rest(_a, ["icon", "title", "description"]);
+function ContactIcon({icon:Icon, title, description, ...others}) {
+    //var { icon: Icon, title, description } = _a, others = __rest(_a, ["icon", "title", "description"]);
     return (<div className={classes.wrapper} {...others}>
       <Box mr="md">
         <Icon style={{ width: rem(24), height: rem(24) }}/>

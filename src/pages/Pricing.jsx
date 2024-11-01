@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container } from '@mantine/core';
 
-import { PricingTable } from '../PricingTable';
+import { PricingTable } from '../pricing/PricingTable';
 
 function Pricing() {
     return ( 

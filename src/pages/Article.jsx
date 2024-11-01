@@ -4,8 +4,9 @@ import { useParams } from 'react-router-dom';
 import { Container, Loader, Button } from '@mantine/core';
 import { supabase } from '../Supabase';
 
-import ArticleForm from '../ArticleForm';
+import ArticleForm from '../news/ArticleForm';
 
+import fp_placeholder_photo from "../assets/fp_placeholder_photo.svg";
 import covidImg from "../assets/fp_vaccination_covid.jpg";
 import newPatientsImg from "../assets/fp_new_patients.jpg";
 import preventiveImg from "../assets/fp_preventive_programs.jpg";
@@ -22,7 +23,7 @@ function ArticleDetail({article, onEdit}){
         <h1>{article.title}</h1>
         <div style={{display: "flex", justifyContent: "center", alignItems: "flex-start"}}>
             <div style={{flex: "1", paddingTop: "15px"}}>
-                <img src={images[article.slug]} style={{width: "350px", borderRadius: "10px"}}/>
+                <img src={images[article.slug] ? images[article.slug] : fp_placeholder_photo} style={{width: "350px", borderRadius: "10px"}}/>
             </div>
             <div style={{display: "flex", flexDirection: "column", flex: "1", alignItems: "flex-end"}}>
             <p style={{paddingTop: "15px", textAlign: "justify"}}>
@@ -35,23 +36,6 @@ function ArticleDetail({article, onEdit}){
     )
 }
 
-function ArticleEdit({book, onSave, onCancel}) {
-
-
-    return ( 
-        <>
-        <h1>formular na upravu</h1>
-        </>
-     );
-}
-
-function ArticleAdd() {
-
-    return (
-        <>
-        </>
-     );
-}
 
 
 function Article() {
@@ -84,18 +68,52 @@ function Article() {
             setArticles(data)
     }
 
-    const addArticle = async () =>{
-
+    const addArticle = async ({values}) =>{
+            console.log(values)
         const {error} =  await supabase
             .from("articles")
             .insert({
-                //data z formulare
+                title: values.title,
+                description: values.description,
+                body: values.body
             })
+            console.log(error)
 
-            if (error) {
+            if (error !== null) {
                 console.log(error.message)
+                return
             }
+            getArticles()
+            setShowInsert(false)
+            setIsEdited(false)
+            setHideInsertBtn(false)
+
     }
+
+    const editArticle = async ({values, articleId}) => {
+
+        console.log(values)
+        console.log(articleId)
+    const {error} =  await supabase
+        .from("articles")
+        .update({
+            title: values.title,
+            description: values.description,
+            body: values.body
+        })
+        .eq("id", articleId)
+        console.log(error)
+
+        if (error !== null) {
+            console.log(error.message)
+            return
+        }
+        getArticles()
+        setShowInsert(false)
+        setIsEdited(false)
+        setHideInsertBtn(false)
+}
+
       
     return ( 
         <>
@@ -117,13 +135,11 @@ function Article() {
             : (
                 isEdited
                 ? <ArticleForm
-
-/*                  article={articles}
-                    onSave={saveBook}
-                    onCancel={() => {setIsEdited(false)}} */
                     title={articles.title}
                     description={articles.description}
                     body={articles.body}
+                    onSubmit={editArticle}
+                    articleId={articles.id}
                 />
                 : <ArticleDetail article={articles} onEdit={() => {setIsEdited(true); setHideInsertBtn(true)}}/>
               )

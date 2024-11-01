@@ -2,13 +2,14 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 import { SimpleGrid, Card, Image, Text, Container, AspectRatio, Loader } from '@mantine/core';
-import { supabase } from './Supabase';
+import { supabase } from '../Supabase';
 import classes from './ArticlesCardsGrid.module.css';
 
 import DateFormat from "./DateFormat"
-import covidImg from "./assets/fp_vaccination_covid.jpg";
-import newPatientsImg from "./assets/fp_new_patients.jpg";
-import preventiveImg from "./assets/fp_preventive_programs.jpg";
+import photoPlaceholder from "../assets/fp_placeholder_photo.svg";
+import covidImg from "../assets/fp_vaccination_covid.jpg";
+import newPatientsImg from "../assets/fp_new_patients.jpg";
+import preventiveImg from "../assets/fp_preventive_programs.jpg";
 
 const images = {
   "ockovani-proti-covid-19": covidImg,
@@ -16,12 +17,12 @@ const images = {
   "preventivni-programy": preventiveImg
 }
 
-export function ArticlesCardsGrid(home) {
+export function ArticlesCardsGrid({home}) {
 
     const  [articles, setArticles] = useState(null)
-    var pathNews = "/"
+    var pathNews = ""
     var articlesCount = 9
-    home ? pathNews = "/news/" : pathNews = "/"
+    home ? pathNews = "/news/" : pathNews = ""
     home ? articlesCount = 3 : articlesCount = 21
 
     useEffect(
@@ -35,7 +36,7 @@ export function ArticlesCardsGrid(home) {
         const {data, error} = await supabase
             .from("articles")
             .select()
-            .order("id", {ascending: true})
+            .order("created_at", {ascending: false})
             .limit(articlesCount)
 
             if (error !== null) {
@@ -48,9 +49,9 @@ export function ArticlesCardsGrid(home) {
   
 
   const cards = articles?.map((article) => (
-    <Card key={article.slug} p="md" radius="md" component={Link} to={pathNews + article.slug} className={classes.card}>
+    <Card key={article.slug} p="md" radius="md" component={Link} to={pathNews + article.slug} className={classes.card} onClick={() => window.scrollTo(0,0)}>
       <AspectRatio ratio={1920 / 1080}>
-        <Image src={images[article.slug]} radius="md" />
+        <Image src={images[article.slug] ?  images[article.slug] : photoPlaceholder} fit={images[article.slug] ? "cover" : "object-fit"} radius="md" />
       </AspectRatio>
       <Text c="dimmed" size="xs" tt="uppercase" fw={700} mt="md">
         {article.created_at}
@@ -69,7 +70,7 @@ export function ArticlesCardsGrid(home) {
       {
         articles === null
         ? <Loader color='cyan' size="lg" type='dots'/>
-        :<SimpleGrid cols={{ base: 1, sm: 3 }}>{cards}</SimpleGrid>
+        :<SimpleGrid cols={{base: 1, sm: 3}}>{cards}</SimpleGrid>
       }
     </Container>
   );

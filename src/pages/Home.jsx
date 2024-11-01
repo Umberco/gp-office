@@ -1,9 +1,9 @@
 import React from 'react';
 import { Container } from '@mantine/core';
 
-import { HeroImageRight } from './../HeroImageRight';
-import { ArticlesCardsGrid } from './../ArticlesCardsGrid';
-import { GetInTouch } from './../GetInTouch';
+import { HeroImageRight } from '../index/HeroImageRight';
+import { ArticlesCardsGrid } from '../news/ArticlesCardsGrid';
+import { GetInTouch } from '../contact/GetInTouch';
 
 function Home() {
     return ( 

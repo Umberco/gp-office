@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { FaqSimple } from '../FaqSimple';
+import { FaqSimple } from '../clients_zone/FaqSimple';
 
 function Appointment() {
     return ( 
