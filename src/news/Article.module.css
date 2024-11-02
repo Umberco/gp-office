@@ -1,0 +1,32 @@
+.articleWrapper{
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin-bottom: 45px;
+
+    @media (max-width: $mantine-breakpoint-md) {
+        flex-direction: column;
+      }
+}
+
+.imgWrapper{
+    flex: 1;
+    padding-top: 15px;
+}
+
+.articleImg{
+    width: 350px; 
+    border-radius: 10px;
+}
+
+.textWrapper{
+    display: flex; 
+    flex-direction: column; 
+    flex: 1; 
+    align-items: flex-end;
+}
+
+.articleText{
+    padding-top: 15px;
+    text-align: justify;
+}

@@ -28,6 +28,7 @@ export function AppShellNav() {
         <Group h="100%" px="md">
           <Link to="/" className={classes.navLink}><MainLogo>Ordinace Hradecká</MainLogo></Link>
           <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
+          
           <Group justify="space-between" style={{ flex: 1 }}>
             <img src=''></img>
             <Group ml="xl" gap={0} visibleFrom="sm">
@@ -53,9 +54,9 @@ export function AppShellNav() {
                 </Menu>
               </Link>
               <Link to="pricing" className={classes.navLink}><UnstyledButton className={classes.control}>CENÍK</UnstyledButton></Link>
-              <Link to="services" className={classes.navLink}><UnstyledButton className={classes.control}>SLUŽBY</UnstyledButton></Link>
+              {/* <Link to="services" className={classes.navLink}><UnstyledButton className={classes.control}>SLUŽBY</UnstyledButton></Link> */}
               <Link to="contact" className={classes.navLink}><UnstyledButton className={classes.control}>KONTAKT</UnstyledButton></Link>
-              {isAuth ? <Tooltip lable={user}><IconUserCheck stroke={2} color='#4FC4E3'/></Tooltip> : <></>}
+              {isAuth ? <Link to="admin" className={classes.navLink}><Tooltip label={user.email}><IconUserCheck stroke={2} color='#4FC4E3'/></Tooltip></Link> : <></>}
             </Group>
           </Group>
           
@@ -66,10 +67,11 @@ export function AppShellNav() {
       </AppShell.Header>
 
       <AppShell.Navbar py="md" px={4}>
+      {isAuth ? <Link to="admin" className={classes.navLink} onClick={toggle}><Tooltip label={user.email}><IconUserCheck stroke={2} color='#4FC4E3'/></Tooltip></Link> : <></>}
               <Link to="news" className={classes.navLink} onClick={toggle}><UnstyledButton className={classes.control}>AKTUALITY</UnstyledButton></Link>
               <Link to="appointment" className={classes.navLink} onClick={toggle}><UnstyledButton className={classes.control}>KLIENTSKÁ ZÓNA</UnstyledButton></Link>
               <Link to="pricing" className={classes.navLink} onClick={toggle}><UnstyledButton className={classes.control}>CENÍK</UnstyledButton></Link>
-              <Link to="services" className={classes.navLink} onClick={toggle}><UnstyledButton className={classes.control}>SLUŽBY</UnstyledButton></Link>
+              {/* <Link to="services" className={classes.navLink} onClick={toggle}><UnstyledButton className={classes.control}>SLUŽBY</UnstyledButton></Link> */}
               <Link to="contact" className={classes.navLink} onClick={toggle}><UnstyledButton className={classes.control}>KONTAKT</UnstyledButton></Link>
       </AppShell.Navbar>
 

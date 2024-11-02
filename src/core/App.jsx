@@ -18,8 +18,8 @@ import Appointment from "../pages/Appointment";
 import Pricing from "../pages/Pricing";
 import Services from "../pages/Services";
 import Contact from "../pages/Contact";
-import Article from "../pages/Article";
 import Admin from "../pages/Admin"
+import Article from "../news/Article";
 
 
 function App() {

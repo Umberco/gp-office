@@ -54,7 +54,7 @@ export function ArticlesCardsGrid({home}) {
         <Image src={images[article.slug] ?  images[article.slug] : photoPlaceholder} fit={images[article.slug] ? "cover" : "object-fit"} radius="md" />
       </AspectRatio>
       <Text c="dimmed" size="xs" tt="uppercase" fw={700} mt="md">
-        {article.created_at}
+        <DateFormat dateTime={article.created_at}/>
       </Text>
       <Text className={classes.title} mt={5}>
         {article.title}

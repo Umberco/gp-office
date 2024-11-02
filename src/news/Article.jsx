@@ -1,10 +1,13 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Container, Loader, Button } from '@mantine/core';
+import { Container, Loader, Button, Divider, Text } from '@mantine/core';
 import { supabase } from '../Supabase';
+import DateFormat from "./DateFormat"
 
-import ArticleForm from '../news/ArticleForm';
+import { useAuth } from '../context/AuthContext';
+import ArticleForm from './ArticleForm';
+import classes from "./Article.module.css"
 
 import fp_placeholder_photo from "../assets/fp_placeholder_photo.svg";
 import covidImg from "../assets/fp_vaccination_covid.jpg";
@@ -18,20 +21,24 @@ const images = {
 }
 
 function ArticleDetail({article, onEdit}){
+    const {isAuth} = useAuth()
+
     return(
         <>
         <h1>{article.title}</h1>
-        <div style={{display: "flex", justifyContent: "center", alignItems: "flex-start"}}>
-            <div style={{flex: "1", paddingTop: "15px"}}>
-                <img src={images[article.slug] ? images[article.slug] : fp_placeholder_photo} style={{width: "350px", borderRadius: "10px"}}/>
+        <Text c="dimmed"><DateFormat dateTime={article.created_at}/></Text>
+        <div className={classes.articleWrapper}>
+            <div className={classes.imgWrapper}>
+                <img src={images[article.slug] ? images[article.slug] : fp_placeholder_photo} className={classes.articleImg}/>
             </div>
-            <div style={{display: "flex", flexDirection: "column", flex: "1", alignItems: "flex-end"}}>
-            <p style={{paddingTop: "15px", textAlign: "justify"}}>
+            <div className={classes.textWrapper}>
+            <p className={classes.articleText}>
                 {article.body}<br></br>
             </p>
-            <Button onClick={onEdit} color='#4FC4E3'>Editovat</Button>
+            {isAuth ?<Button onClick={onEdit} color='#4FC4E3'>Editovat</Button> : <></>}
             </div>
         </div>
+        <Divider size="md" label="Další články"></Divider>
         </>
     )
 }
@@ -40,6 +47,7 @@ function ArticleDetail({article, onEdit}){
 
 function Article() {
     const {articleId} = useParams()
+    const {isAuth} = useAuth()
 
     const [articles, setArticles] = useState(null)
     const [isEdited, setIsEdited] = useState(false)
@@ -118,29 +126,38 @@ function Article() {
     return ( 
         <>
         <Container>
-        {hideInsertBtn === false
+        {isAuth
+            ?(hideInsertBtn === false
             ?<Button onClick={() => {setShowInsert(true); setHideInsertBtn(true)}} color='#4FC4E3' my="lg">Vložit nový článek</Button>
             :<Button onClick={() => {setShowInsert(false); setIsEdited(false); setHideInsertBtn(false)}} color='red' my="lg">Zrušit</Button>
+            )
+            : <></>
         }
         {   
             showInsert === true
-            ? <ArticleForm
+            ? <>
+              <ArticleForm
                 title={""}
                 description={""}
                 body={""} 
                 onSubmit={addArticle}
               />
+              <Divider my="md" size="md" label="Další články"></Divider>
+              </>
             : articles === null
             ? <Loader color='cyan' size="lg" type='dots'/>
             : (
                 isEdited
-                ? <ArticleForm
+                ?<>
+                <ArticleForm
                     title={articles.title}
                     description={articles.description}
                     body={articles.body}
                     onSubmit={editArticle}
                     articleId={articles.id}
                 />
+                <Divider my="md" size="md" label="Další články"></Divider>
+                </>
                 : <ArticleDetail article={articles} onEdit={() => {setIsEdited(true); setHideInsertBtn(true)}}/>
               )
             

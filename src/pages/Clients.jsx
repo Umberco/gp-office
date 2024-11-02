@@ -2,7 +2,7 @@ import React from 'react';
 
 import { FaqSimple } from '../clients_zone/FaqSimple';
 
-function Appointment() {
+function Clients() {
     return ( 
     <>
     <FaqSimple></FaqSimple>
@@ -10,4 +10,4 @@ function Appointment() {
     );
 }
 
-export default Appointment;
+export default Clients;

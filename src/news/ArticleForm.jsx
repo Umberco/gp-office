@@ -39,7 +39,7 @@ function ArticleForm({title, description, body, onSubmit, articleId}) {
         />
 
 
-        <Group position="right" mt="md">
+        <Group position="right" mt="md" justify='end'>
           <Button type="submit" color='#4FC4E3'>Vložit</Button>
         </Group>
       </form>
