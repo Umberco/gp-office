@@ -34,22 +34,23 @@ export function AppShellNav() {
             <Group ml="xl" gap={0} visibleFrom="sm">
               <Link to="news" className={classes.navLink}><UnstyledButton className={classes.control}>AKTUALITY</UnstyledButton></Link>
               {/* <Link to="appointment" className={classes.navLink}><UnstyledButton className={classes.control}>KLIENTSKÁ ZÓNA</UnstyledButton></Link> */}
-              <Link to="appointment" className={classes.navLink}>
+              <Link to="clients" className={classes.navLink}>
                 <Menu trigger="hover" openDelay={100} closeDelay={400}>
                   <Menu.Target><UnstyledButton className={classes.control}>KLIENTSKÁ ZÓNA</UnstyledButton></Menu.Target>
                   <Menu.Dropdown>
                     <Menu.Item>
                       OBJEDNÁNÍ
                     </Menu.Item>
-                    <Menu.Item>
-                      OTÁZKY A ODPOVĚDI
-                    </Menu.Item>
-                    <Menu.Item>
-                      RECEPTY
-                    </Menu.Item>
-                    <Menu.Item>
-                      ANAMNÉZA
-                    </Menu.Item>
+                    <Link to="/clients/faq" className={classes.navLink}>
+                      <Menu.Item>
+                        OTÁZKY A ODPOVĚDI
+                      </Menu.Item>
+                    </Link>
+                    <Link to="/clients/anamnesis" className={classes.navLink}>
+                      <Menu.Item>
+                        ANAMNÉZA
+                      </Menu.Item>
+                    </Link>
                   </Menu.Dropdown>
                 </Menu>
               </Link>
@@ -69,7 +70,7 @@ export function AppShellNav() {
       <AppShell.Navbar py="md" px={4}>
       {isAuth ? <Link to="admin" className={classes.navLink} onClick={toggle}><Tooltip label={user.email}><IconUserCheck stroke={2} color='#4FC4E3'/></Tooltip></Link> : <></>}
               <Link to="news" className={classes.navLink} onClick={toggle}><UnstyledButton className={classes.control}>AKTUALITY</UnstyledButton></Link>
-              <Link to="appointment" className={classes.navLink} onClick={toggle}><UnstyledButton className={classes.control}>KLIENTSKÁ ZÓNA</UnstyledButton></Link>
+              <Link to="clients" className={classes.navLink} onClick={toggle}><UnstyledButton className={classes.control}>KLIENTSKÁ ZÓNA</UnstyledButton></Link>
               <Link to="pricing" className={classes.navLink} onClick={toggle}><UnstyledButton className={classes.control}>CENÍK</UnstyledButton></Link>
               {/* <Link to="services" className={classes.navLink} onClick={toggle}><UnstyledButton className={classes.control}>SLUŽBY</UnstyledButton></Link> */}
               <Link to="contact" className={classes.navLink} onClick={toggle}><UnstyledButton className={classes.control}>KONTAKT</UnstyledButton></Link>

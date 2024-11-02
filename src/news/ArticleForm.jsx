@@ -1,4 +1,4 @@
-import { TextInput, Textarea, Button, Group, Box } from '@mantine/core';
+import { TextInput, Textarea, Button, Group, Box, FileInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 
 function ArticleForm({title, description, body, onSubmit, articleId}) {
@@ -6,7 +6,8 @@ function ArticleForm({title, description, body, onSubmit, articleId}) {
     initialValues: {
       title: title,
       description: description,
-      body: body
+      body: body,
+      image: null
     },
 
     validate: {
@@ -28,6 +29,16 @@ function ArticleForm({title, description, body, onSubmit, articleId}) {
           label="Popis"
           placeholder="Krátký popis k zobrazení v náhledu"
           {...form.getInputProps('description')}
+        />
+
+        {/* TODO ještě zda je správně nastaven update hodnoty */}
+        <FileInput
+          label="Obrázek článku"
+          placeholder="Vložit ilustrační obrázek"
+          /* onChange=handleFileChange = (e) => {
+              setFile()
+            } */
+          {...form.getInputProps('image')}
         />
         <Textarea
           withAsterisk

@@ -30,6 +30,7 @@ function ArticleDetail({article, onEdit}){
         <div className={classes.articleWrapper}>
             <div className={classes.imgWrapper}>
                 <img src={images[article.slug] ? images[article.slug] : fp_placeholder_photo} className={classes.articleImg}/>
+                {/* <img src={articles.image !== null ? import.meta.env.VITE_SUPABASE_STORAGE + articles.image : fp_placeholder_photo} className={classes.articleImg}/> */}
             </div>
             <div className={classes.textWrapper}>
             <p className={classes.articleText}>
@@ -77,13 +78,22 @@ function Article() {
     }
 
     const addArticle = async ({values}) =>{
+        //TODO přidání obrázku a uložení cesty do databáze
+        const {data, errorImg} = await supabase.storage
+        .from("articles")
+        .upload("img", values.image)
+
+        const uploadedFileName = data.fullPath
+
+        //Konec TODO
             console.log(values)
         const {error} =  await supabase
             .from("articles")
             .insert({
                 title: values.title,
                 description: values.description,
-                body: values.body
+                body: values.body,
+                image: uploadedFileName
             })
             console.log(error)
 
@@ -121,6 +131,14 @@ function Article() {
         setIsEdited(false)
         setHideInsertBtn(false)
 }
+
+/*     const uploadArticleImage = async() => {
+        
+
+
+        
+
+    } */
 
       
     return ( 

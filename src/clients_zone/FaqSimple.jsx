@@ -49,3 +49,5 @@ export function FaqSimple() {
     </Container>
   );
 }
+
+export default FaqSimple;
