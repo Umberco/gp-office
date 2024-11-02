@@ -7,6 +7,7 @@ import {
 import { MantineProvider } from "@mantine/core"
 import "@mantine/core/styles.css";
 
+import { AuthProvider } from "../context/AuthContext";
 
 import './App.css'
 import "./AppShellNav"
@@ -23,6 +24,7 @@ import Admin from "../pages/Admin"
 
 function App() {
   return(
+   <AuthProvider> 
     <MantineProvider>
       <BrowserRouter>
         <Routes>
@@ -40,6 +42,7 @@ function App() {
         </Routes>
       </BrowserRouter>
     </MantineProvider>
+  </AuthProvider>
   )
 }
 

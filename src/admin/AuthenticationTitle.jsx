@@ -1,3 +1,6 @@
+import {useState} from "react"
+import {supabase} from "../Supabase"
+
 import {
     TextInput,
     PasswordInput,
@@ -12,7 +15,12 @@ import {
   } from '@mantine/core';
   import classes from './AuthenticationTitle.module.css';
   
+  
   export function AuthenticationTitle() {
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+
+
     return (
       <Container size={420} my={40}>
         <Title ta="center" className={classes.title}>

@@ -1,23 +1,21 @@
 import * as React from 'react';
-import { AppShell, Burger, Group, UnstyledButton, Container, Menu, Button } from '@mantine/core';
+import { AppShell, Burger, Group, UnstyledButton, Container, Menu, Button, Tooltip } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import classes from './AppShellNav.module.css';
+
+import { useAuth } from '../context/AuthContext';
 
 import { MainLogo } from '../index/MainLogo';
 import { Outlet, Link } from 'react-router-dom';
 
 import {
-  IconSettings,
-  IconSearch,
-  IconPhoto,
-  IconMessageCircle,
-  IconTrash,
-  IconArrowsLeftRight,
   IconCircleArrowUp,
+  IconUserCheck
 } from '@tabler/icons-react';
 
 export function AppShellNav() {
   const [opened, { toggle }] = useDisclosure();
+  const {user, isAuth} = useAuth();
 
   return (
     <AppShell
@@ -57,9 +55,12 @@ export function AppShellNav() {
               <Link to="pricing" className={classes.navLink}><UnstyledButton className={classes.control}>CENÍK</UnstyledButton></Link>
               <Link to="services" className={classes.navLink}><UnstyledButton className={classes.control}>SLUŽBY</UnstyledButton></Link>
               <Link to="contact" className={classes.navLink}><UnstyledButton className={classes.control}>KONTAKT</UnstyledButton></Link>
+              {isAuth ? <Tooltip lable={user}><IconUserCheck stroke={2} color='#4FC4E3'/></Tooltip> : <></>}
             </Group>
           </Group>
+          
         </Group>
+        
         </Container>
         
       </AppShell.Header>

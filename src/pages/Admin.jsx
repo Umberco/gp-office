@@ -1,12 +1,16 @@
 import React from 'react';
+import { Container } from '@mantine/core';
 
 import { AuthenticationTitle } from '../admin/AuthenticationTitle';
+import { AuthenticationForm } from '../admin/AutheticationForm';
 
 
 function Admin () {
     return ( 
         <>
-        <AuthenticationTitle></AuthenticationTitle>
+        <Container>
+            <AuthenticationForm></AuthenticationForm>
+        </Container>
         </> 
      );
 }
