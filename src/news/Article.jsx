@@ -20,6 +20,7 @@ const images = {
   "preventivni-programy": preventiveImg
 }
 
+
 function ArticleDetail({article, onEdit}){
     const {isAuth} = useAuth()
 
@@ -29,8 +30,8 @@ function ArticleDetail({article, onEdit}){
         <Text c="dimmed"><DateFormat dateTime={article.created_at}/></Text>
         <div className={classes.articleWrapper}>
             <div className={classes.imgWrapper}>
-                <img src={images[article.slug] ? images[article.slug] : fp_placeholder_photo} className={classes.articleImg}/>
-                {/* <img src={articles.image !== null ? import.meta.env.VITE_SUPABASE_STORAGE + articles.image : fp_placeholder_photo} className={classes.articleImg}/> */}
+                {/* <img src={images[article.slug] ? images[article.slug] : fp_placeholder_photo} className={classes.articleImg}/> */}
+                <img src={article.image !== null ? import.meta.env.VITE_SUPABASE_STORAGE + article.image : fp_placeholder_photo} className={classes.articleImg}/>
             </div>
             <div className={classes.textWrapper}>
             <p className={classes.articleText}>
@@ -79,22 +80,70 @@ function Article() {
 
     const addArticle = async ({values}) =>{
         //TODO přidání obrázku a uložení cesty do databáze
-        const {data, errorImg} = await supabase.storage
-        .from("articles")
-        .upload("img", values.image)
 
-        const uploadedFileName = data.fullPath
+        try {
+            console.log(values.image);
+            const { data: dataImg, error: errorImg } = await supabase.storage
+              .from("articles")
+              .upload(values.image.name, values.image);
+        
+            if (errorImg) {
+              console.error("Image upload error:", errorImg);
+              return;
+            }
+        
+            const uploadedFileName = dataImg.fullPath; // Ensure this is the correct property
+        
+            console.log(values);
+            const { error } = await supabase
+              .from("articles")
+              .insert({
+                title: values.title,
+                description: values.description,
+                body: values.body,
+                image: uploadedFileName,
+              });
+        
+            if (error) {
+              console.error("Database insert error:", error.message);
+              return;
+            }
+        
+            getArticles();
+            setShowInsert(false);
+            setIsEdited(false);
+            setHideInsertBtn(false);
+          } catch (err) {
+            console.error("Unexpected error:", err);
+          }
 
-        //Konec TODO
+    }
+
+    const editArticle = async ({values, articleId}) => {
+
             console.log(values)
+            console.log(articleId)
+            console.log(values.image);
+        const { data: dataImg, error: errorImg } = await supabase.storage
+              .from("articles")
+              .upload(values.image.name, values.image);
+        
+            if (errorImg) {
+              console.error("Image upload error:", errorImg);
+              return;
+            }
+        
+            const uploadedFileName = dataImg.fullPath;
+
         const {error} =  await supabase
             .from("articles")
-            .insert({
+            .update({
                 title: values.title,
                 description: values.description,
                 body: values.body,
                 image: uploadedFileName
             })
+            .eq("id", articleId)
             console.log(error)
 
             if (error !== null) {
@@ -105,42 +154,8 @@ function Article() {
             setShowInsert(false)
             setIsEdited(false)
             setHideInsertBtn(false)
-
     }
-
-    const editArticle = async ({values, articleId}) => {
-
-        console.log(values)
-        console.log(articleId)
-    const {error} =  await supabase
-        .from("articles")
-        .update({
-            title: values.title,
-            description: values.description,
-            body: values.body
-        })
-        .eq("id", articleId)
-        console.log(error)
-
-        if (error !== null) {
-            console.log(error.message)
-            return
-        }
-        getArticles()
-        setShowInsert(false)
-        setIsEdited(false)
-        setHideInsertBtn(false)
-}
-
-/*     const uploadArticleImage = async() => {
-        
-
-
-        
-
-    } */
-
-      
+     
     return ( 
         <>
         <Container>

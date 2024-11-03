@@ -51,7 +51,8 @@ export function ArticlesCardsGrid({home}) {
   const cards = articles?.map((article) => (
     <Card key={article.slug} p="md" radius="md" component={Link} to={pathNews + article.slug} className={classes.card} onClick={() => window.scrollTo(0,0)}>
       <AspectRatio ratio={1920 / 1080}>
-        <Image src={images[article.slug] ?  images[article.slug] : photoPlaceholder} fit={images[article.slug] ? "cover" : "object-fit"} radius="md" />
+        <Image src={article.image !== null ? import.meta.env.VITE_SUPABASE_STORAGE + article.image : photoPlaceholder} className={classes.articleImg}/>
+        {/* <Image src={images[article.slug] ?  images[article.slug] : photoPlaceholder} fit={images[article.slug] ? "cover" : "object-fit"} radius="md" /> */}
       </AspectRatio>
       <Text c="dimmed" size="xs" tt="uppercase" fw={700} mt="md">
         <DateFormat dateTime={article.created_at}/>

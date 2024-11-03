@@ -35,9 +35,7 @@ function ArticleForm({title, description, body, onSubmit, articleId}) {
         <FileInput
           label="Obrázek článku"
           placeholder="Vložit ilustrační obrázek"
-          /* onChange=handleFileChange = (e) => {
-              setFile()
-            } */
+          onChange={(file) => form.setFieldValue('image', file)}
           {...form.getInputProps('image')}
         />
         <Textarea
