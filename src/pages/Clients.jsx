@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {Outlet, useLocation} from "react-router-dom"
 import { Link } from 'react-router-dom';
 
-import { FaqSimple } from '../clients_zone/FaqSimple';
+import { ClientsMenu } from '../clients_zone/ClientsMenu';
 
 function Clients() {
     const location = useLocation()
@@ -16,12 +16,7 @@ function Clients() {
     return ( 
         <>
             {showMenu && (
-                <nav>
-                    <ul>
-                        <li><Link to="/clients/faq">FAQ</Link></li>
-                        <li><Link to="/clients/anamnesis">ANAMNÉZA</Link></li>
-                    </ul>
-                </nav>
+                <ClientsMenu/>
             )}
             <Outlet />
         </>
