@@ -31,7 +31,7 @@ const contactData = [
     { title: 'IČO', description: '123456789', icon: IconIdBadge2 },
     { title: 'Email', description: 'ordinacehk@gmail.com', icon: IconAt },
     { title: 'Telefon', description: '+420 777 888 999', icon: IconPhone },
-    { title: 'Adresa', description: 'Gagarinova 587 Hradec Králové 500 03', icon: IconMapPin },
+    { title: 'Adresa', description: 'Pospíšilova 281/18 Hradec Králové 500 03', icon: IconMapPin },
 
 ];
 

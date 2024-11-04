@@ -22,7 +22,7 @@ export function GetInTouch() {
           <ContactIconsList />
         </div>
 
-        <iframe style={{border:"none", borderRadius: "15px", width: "100%"}} src="https://frame.mapy.cz/s/banoluvute" ></iframe>
+        <iframe style={{border:"none", borderRadius: "15px", width: "100%"}} src="https://frame.mapy.cz/s/kunetosona" ></iframe>
 
 {/*         <form className={classes.form} onSubmit={(event) => event.preventDefault()}>
           <Text fz="lg" fw={700} className={classes.title}>

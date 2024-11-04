@@ -140,25 +140,28 @@ export function Anamnesis() {
               {...form.getInputProps('chronicDiseases')} 
             />
             <Textarea 
-            label="Pravidelné léky" 
-            {...form.getInputProps('medications')} 
+              label="Pravidelné léky" 
+              {...form.getInputProps('medications')} 
             />
             <Textarea 
-            label="Alergie" 
-            {...form.getInputProps('allergies')} 
+              label="Alergie" 
+              {...form.getInputProps('allergies')} 
             />
             <Select
               label="Kouření"
+              placeholder="Vyberte..."
               data={['Ne', 'Ano, méně než 10 cigaret denně', 'Ano, více než 10 cigaret denně']}
               {...form.getInputProps('smoking')}
             />
             <Select
               label="Konzumace alkoholu"
+              placeholder="Vyberte..."
               data={['Ne', 'Příležitostně', 'Pravidelně']}
               {...form.getInputProps('alcohol')}
             />
             <Select
               label="Cvičení"
+              placeholder="Vyberte..."
               data={['Ne', '1-2x týdně', 'Více než 2x týdně']}
               {...form.getInputProps('exercise')}
             />
