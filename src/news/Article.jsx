@@ -20,7 +20,6 @@ const images = {
   "preventivni-programy": preventiveImg
 }
 
-
 function ArticleDetail({article, onEdit}){
     const {isAuth} = useAuth()
 
@@ -56,18 +55,21 @@ function Article() {
     const [showInsert, setShowInsert] =  useState(false)
     const [hideInsertBtn, setHideInsertBtn] = useState(false)
 
+
+
     useEffect(
         () => {
-            getArticles()
+            getArticle()
         },
         [articleId]
     )
 
-    const getArticles = async () =>{
+    const getArticle = async () =>{
         const {data, error} = await supabase
             .from("articles")
             .select()
             .eq("slug", articleId)
+            .eq("isActive", true)
             .limit(1)
             .single()
 
@@ -79,21 +81,27 @@ function Article() {
     }
 
     const addArticle = async ({values}) =>{
-        //TODO přidání obrázku a uložení cesty do databáze
-
         try {
+        //NULL IMAGE IMPORT CHECK
+        let uploadedFileName;
+          if (values.image !== null){
             console.log(values.image);
             const { data: dataImg, error: errorImg } = await supabase.storage
               .from("articles")
               .upload(values.image.name, values.image);
         
-            if (errorImg) {
-              console.error("Image upload error:", errorImg);
-              return;
-            }
+        //DUPLICATE IMAGE CHECK
+        if (errorImg && errorImg.error === "Duplicate"){
+          uploadedFileName = "articles/" + values.image.name
+        } else {
         
-            const uploadedFileName = dataImg.fullPath; // Ensure this is the correct property
-        
+        if (errorImg) {
+          console.error("Image upload error:", errorImg);
+          return;
+        }
+        uploadedFileName = dataImg.fullPath;
+        }
+            
             console.log(values);
             const { error } = await supabase
               .from("articles")
@@ -103,13 +111,22 @@ function Article() {
                 body: values.body,
                 image: uploadedFileName,
               });
+            } else {
+            const { error } = await supabase
+            .from("articles")
+            .insert({
+              title: values.title,
+              description: values.description,
+              body: values.body,
+            });
+            }
         
             if (error) {
               console.error("Database insert error:", error.message);
               return;
             }
         
-            getArticles();
+            getArticle();
             setShowInsert(false);
             setIsEdited(false);
             setHideInsertBtn(false);
@@ -120,6 +137,10 @@ function Article() {
     }
 
     const editArticle = async ({values, articleId}) => {
+      try {
+      //NULL IMAGE IMPORT CHECK
+      let uploadedFileName;
+      if (values.image !== null){
 
             console.log(values)
             console.log(articleId)
@@ -127,14 +148,17 @@ function Article() {
         const { data: dataImg, error: errorImg } = await supabase.storage
               .from("articles")
               .upload(values.image.name, values.image);
-        
+      //DUPLICATE IMAGE CHECK
+            if (errorImg && errorImg.error === "Duplicate"){
+              uploadedFileName = "articles/" + values.image.name
+            } else {
+            
             if (errorImg) {
               console.error("Image upload error:", errorImg);
               return;
             }
-        
-            const uploadedFileName = dataImg.fullPath;
-
+            uploadedFileName = dataImg.fullPath;
+          }
         const {error} =  await supabase
             .from("articles")
             .update({
@@ -150,11 +174,58 @@ function Article() {
                 console.log(error.message)
                 return
             }
-            getArticles()
+          } else {
+            const {error} =  await supabase
+            .from("articles")
+            .update({
+                title: values.title,
+                description: values.description,
+                body: values.body,
+            })
+            .eq("id", articleId)
+            console.log(error)
+
+            if (error !== null) {
+                console.log(error.message)
+                return
+
+              }
+           }
+            getArticle()
             setShowInsert(false)
             setIsEdited(false)
             setHideInsertBtn(false)
+          } catch (err) {
+            console.error("Unexpected error:", err);
+          }
     }
+
+    const deactivateArticle = async ({values, articleId}) => {
+      try {
+        console.log(articleId)
+        const { error} = await supabase
+              .from("articles")
+              .eq("id", articleId)
+              console.log(error)
+              .update({isActive: false})
+  
+              if (error !== null) {
+                  console.log(error.message)
+                  return
+              }
+              setShowInsert(false)
+              setIsEdited(false)
+              setHideInsertBtn(false)
+            } catch (err) {
+              console.error("Unexpected error:", err);
+            }
+            //TODO - doplnit navigate na obecnou obrazovku /news a doplnit tlačítko pro delete
+
+      }
+
+
+
+
      
     return ( 
         <>

@@ -37,6 +37,7 @@ export function ArticlesCardsGrid({home}) {
             .from("articles")
             .select()
             .order("created_at", {ascending: false})
+            .eq("isActive", true)
             .limit(articlesCount)
 
             if (error !== null) {
