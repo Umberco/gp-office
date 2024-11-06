@@ -1,6 +1,6 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { Container, Loader, Button, Divider, Text } from '@mantine/core';
 import { supabase } from '../Supabase';
 import DateFormat from "./DateFormat"
@@ -55,6 +55,7 @@ function Article() {
     const [showInsert, setShowInsert] =  useState(false)
     const [hideInsertBtn, setHideInsertBtn] = useState(false)
 
+    const navigate = useNavigate()
 
 
     useEffect(
@@ -200,14 +201,13 @@ function Article() {
           }
     }
 
-    const deactivateArticle = async ({values, articleId}) => {
+    const deactivateArticle = async ({articleId}) => {
       try {
         console.log(articleId)
         const { error} = await supabase
               .from("articles")
-              .eq("id", articleId)
-              console.log(error)
               .update({isActive: false})
+              .eq("id", articleId)
   
               if (error !== null) {
                   console.log(error.message)
@@ -216,6 +216,8 @@ function Article() {
               setShowInsert(false)
               setIsEdited(false)
               setHideInsertBtn(false)
+              navigate('/news')
+              location.reload();
             } catch (err) {
               console.error("Unexpected error:", err);
             }
@@ -233,7 +235,7 @@ function Article() {
         {isAuth
             ?(hideInsertBtn === false
             ?<Button onClick={() => {setShowInsert(true); setHideInsertBtn(true)}} color='#4FC4E3' my="lg">Vložit nový článek</Button>
-            :<Button onClick={() => {setShowInsert(false); setIsEdited(false); setHideInsertBtn(false)}} color='red' my="lg">Zrušit</Button>
+            :<Button onClick={() => {setShowInsert(false); setIsEdited(false); setHideInsertBtn(false)}} color='grey' my="lg">Zpět</Button>
             )
             : <></>
         }
@@ -245,6 +247,7 @@ function Article() {
                 description={""}
                 body={""} 
                 onSubmit={addArticle}
+                onDeactivate={false}
               />
               <Divider my="md" size="md" label="Další články"></Divider>
               </>
@@ -259,6 +262,7 @@ function Article() {
                     body={articles.body}
                     onSubmit={editArticle}
                     articleId={articles.id}
+                    onDeactivate={deactivateArticle}
                 />
                 <Divider my="md" size="md" label="Další články"></Divider>
                 </>

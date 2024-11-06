@@ -1,7 +1,8 @@
-import { TextInput, Textarea, Button, Group, Box, FileInput } from '@mantine/core';
+import { TextInput, Textarea, Button, Group, Box, FileInput, Modal } from '@mantine/core';
 import { useForm } from '@mantine/form';
+import { useDisclosure } from '@mantine/hooks';
 
-function ArticleForm({title, description, body, onSubmit, articleId}) {
+function ArticleForm({title, description, body, onSubmit, articleId, onDeactivate}) {
   const form = useForm({
     initialValues: {
       title: title,
@@ -14,6 +15,9 @@ function ArticleForm({title, description, body, onSubmit, articleId}) {
       //body: (value) => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
     },
   });
+
+  const justifyBtns = onDeactivate === false ? "end" : "space-between"
+  const [opened, { open, close }] = useDisclosure(false);
 
   return (
     <Box sx={{ maxWidth: 300 }} mx="auto">
@@ -48,9 +52,13 @@ function ArticleForm({title, description, body, onSubmit, articleId}) {
         />
 
 
-        <Group position="right" mt="md" justify='end'>
-          <Button type="submit" color='#4FC4E3'>Vložit</Button>
+        <Group position="right" mt="md" justify={justifyBtns}>
+          {onDeactivate === false ? <></> : <Button color='red' onClick={() => onDeactivate({articleId})}>Odstranit článek</Button>}
+          <Button color='#4FC4E3' onClick={open}>Vložit</Button>
         </Group>
+        <Modal opened={opened} onClose={close} title="Opravdu chcete zveřejnit článek?">
+        <Button type="submit" color='#4FC4E3'>Ano</Button>
+        </Modal>
       </form>
     </Box>
   );
