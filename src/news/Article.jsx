@@ -54,9 +54,9 @@ function Article() {
     const [isEdited, setIsEdited] = useState(false)
     const [showInsert, setShowInsert] =  useState(false)
     const [hideInsertBtn, setHideInsertBtn] = useState(false)
-
+    const [errorText, setErrorText] = useState([])
+    
     const navigate = useNavigate()
-
 
     useEffect(
         () => {
@@ -75,7 +75,9 @@ function Article() {
             .single()
 
             if (error !== null) {
+              //write error to global error message
                 console.log(error.message)
+                setErrorText(error.message)
                 return
             }
             setArticles(data)
@@ -85,6 +87,7 @@ function Article() {
         try {
         //NULL IMAGE IMPORT CHECK
         let uploadedFileName;
+        let errorArticle;
           if (values.image !== null){
             console.log(values.image);
             const { data: dataImg, error: errorImg } = await supabase.storage
@@ -98,13 +101,14 @@ function Article() {
         
         if (errorImg) {
           console.error("Image upload error:", errorImg);
+          setErrorText(errorImg.message)
           return;
         }
         uploadedFileName = dataImg.fullPath;
         }
             
             console.log(values);
-            const { error } = await supabase
+            const { error: errorArticle } = await supabase
               .from("articles")
               .insert({
                 title: values.title,
@@ -113,7 +117,7 @@ function Article() {
                 image: uploadedFileName,
               });
             } else {
-            const { error } = await supabase
+            const { error: errorArticle } = await supabase
             .from("articles")
             .insert({
               title: values.title,
@@ -122,8 +126,9 @@ function Article() {
             });
             }
         
-            if (error) {
+            if (errorArticle) {
               console.error("Database insert error:", error.message);
+              setErrorText(errorImg.message)
               return;
             }
         
