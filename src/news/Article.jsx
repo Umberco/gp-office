@@ -1,7 +1,8 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Container, Loader, Button, Divider, Text } from '@mantine/core';
+import { Container, Loader, Button, Divider, Text, Alert, Dialog } from '@mantine/core';
+import { useDisclosure } from '@mantine/hooks';
 import { supabase } from '../Supabase';
 import DateFormat from "./DateFormat"
 
@@ -54,7 +55,9 @@ function Article() {
     const [isEdited, setIsEdited] = useState(false)
     const [showInsert, setShowInsert] =  useState(false)
     const [hideInsertBtn, setHideInsertBtn] = useState(false)
-    const [errorText, setErrorText] = useState([])
+    const [errorText, setErrorText] = useState(null)
+    //const [opened, { toggle, close }] = useDisclosure(true);
+
     
     const navigate = useNavigate()
 
@@ -75,8 +78,8 @@ function Article() {
             .single()
 
             if (error !== null) {
-              //write error to global error message
                 console.log(error.message)
+                //write error to global error message
                 setErrorText(error.message)
                 return
             }
@@ -161,6 +164,7 @@ function Article() {
             
             if (errorImg) {
               console.error("Image upload error:", errorImg);
+              setErrorText(errorImg.message)
               return;
             }
             uploadedFileName = dataImg.fullPath;
@@ -178,6 +182,7 @@ function Article() {
 
             if (error !== null) {
                 console.log(error.message)
+                setErrorText(error.message)
                 return
             }
           } else {
@@ -193,6 +198,7 @@ function Article() {
 
             if (error !== null) {
                 console.log(error.message)
+                setErrorText(error.message)
                 return
 
               }
@@ -203,6 +209,7 @@ function Article() {
             setHideInsertBtn(false)
           } catch (err) {
             console.error("Unexpected error:", err);
+            setErrorText("Unexpected error:", err.message)
           }
     }
 
@@ -216,6 +223,7 @@ function Article() {
   
               if (error !== null) {
                   console.log(error.message)
+                  setErrorText(error.message)
                   return
               }
               setShowInsert(false)
@@ -225,8 +233,8 @@ function Article() {
               location.reload();
             } catch (err) {
               console.error("Unexpected error:", err);
+              setErrorText("Unexpected error:", err.message)
             }
-            //TODO - doplnit navigate na obecnou obrazovku /news a doplnit tlačítko pro delete
 
       }
 
@@ -236,6 +244,13 @@ function Article() {
      
     return ( 
         <>
+{/*         
+        DIALOG PRO ZOBRAZENI CHYBY - NICE TO HAVE
+        <Dialog opened={opened} withCloseButton onClose={close} size="lg" radius="md">
+          <Alert variant="light" color="red" title="Alert title">
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. At officiis, quae tempore necessitatibus placeat saepe.
+          </Alert>
+        </Dialog> */}
         <Container>
         {isAuth
             ?(hideInsertBtn === false
@@ -254,6 +269,7 @@ function Article() {
                 onSubmit={addArticle}
                 onDeactivate={false}
               />
+
               <Divider my="md" size="md" label="Další články"></Divider>
               </>
             : articles === null
@@ -273,7 +289,14 @@ function Article() {
                 </>
                 : <ArticleDetail article={articles} onEdit={() => {setIsEdited(true); setHideInsertBtn(true)}}/>
               )
-            
+        }
+        {
+          errorText === null ? <></> 
+          :(
+          <Alert variant="light" color="red" title="Chyba">
+            {errorText}
+          </Alert>
+          )
         }
         </Container>
         </>
