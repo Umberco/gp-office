@@ -277,7 +277,8 @@ function Article() {
                   errorText === null ? <></> 
                   :(
                   <Alert variant="light" color="red" title="Chyba" my="md">
-                    {errorText}
+                      Chyba při odesílání. Zkontrolujte připojení k internetu a zkuste to prosím později.<br></br><br></br>
+                      {errorText}
                   </Alert>
                   )
                 }
@@ -311,6 +312,7 @@ function Article() {
                   errorText === null ? <></> 
                   :(
                   <Alert variant="light" color="red" title="Chyba" my="md">
+                    Chyba při odesílání. Zkontrolujte připojení k internetu a zkuste to prosím později.<br></br><br></br>
                     {errorText}
                   </Alert>
                   )
