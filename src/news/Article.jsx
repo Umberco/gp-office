@@ -2,24 +2,16 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Container, Loader, Button, Divider, Text, Alert, Dialog } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
+//import { useDisclosure } from '@mantine/hooks';
 import { supabase } from '../Supabase';
 import DateFormat from "./DateFormat"
+import { IconClipboardPlus, IconEdit } from '@tabler/icons-react';
 
 import { useAuth } from '../context/AuthContext';
 import ArticleForm from './ArticleForm';
 import classes from "./Article.module.css"
 
 import fp_placeholder_photo from "../assets/fp_placeholder_photo.svg";
-import covidImg from "../assets/fp_vaccination_covid.jpg";
-import newPatientsImg from "../assets/fp_new_patients.jpg";
-import preventiveImg from "../assets/fp_preventive_programs.jpg";
-
-const images = {
-  "ockovani-proti-covid-19": covidImg,
-  "prijimame-nove-pacienty": newPatientsImg,
-  "preventivni-programy": preventiveImg
-}
 
 function ArticleDetail({article, onEdit}){
     const {isAuth} = useAuth()
@@ -37,7 +29,7 @@ function ArticleDetail({article, onEdit}){
             <p className={classes.articleText}>
                 {article.body}<br></br>
             </p>
-            {isAuth ?<Button onClick={onEdit} color='#4FC4E3'>Editovat</Button> : <></>}
+            {isAuth ?<Button onClick={onEdit} color='#4FC4E3'><IconEdit/>Editovat</Button> : <></>}
             </div>
         </div>
         <Divider size="md" label="Další články"></Divider>
@@ -233,7 +225,7 @@ function Article() {
               setIsEdited(false)
               setHideInsertBtn(false)
               setErrorText(null)
-              navigate('/news')
+              navigate('/clients/faq')
               location.reload();
             } catch (err) {
               console.error("Unexpected error:", err);
@@ -258,7 +250,7 @@ function Article() {
         <Container>
         {isAuth
             ?(hideInsertBtn === false
-            ?<Button onClick={() => {setShowInsert(true); setHideInsertBtn(true)}} color='#4FC4E3' my="lg">Vložit nový článek</Button>
+            ?<Button onClick={() => {setShowInsert(true); setHideInsertBtn(true)}} color='#4FC4E3' my="lg"><IconClipboardPlus/>Vložit nový článek</Button>
             :<Button onClick={() => {setShowInsert(false); setIsEdited(false); setHideInsertBtn(false); setErrorText(null)}} color='grey' my="lg">Zpět</Button>
             )
             : <></>

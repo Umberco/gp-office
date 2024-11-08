@@ -15,7 +15,7 @@ import {
   
   const mockdata = [
     {
-      title: 'Objednání',
+      title: 'Objednání - (PŘIPRAVUJEME)',
       description:
         'Snadno a rychle si zde můžete domluvit termín návštěvy u našeho praktického lékaře. Vyberte si čas, který vám nejlépe vyhovuje, a my se postaráme o zbytek.',
       icon: IconCalendarClock,

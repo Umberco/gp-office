@@ -1,7 +1,6 @@
 import { Paper, Text, TextInput, Textarea, Button, Group, SimpleGrid, Table } from '@mantine/core';
 import { ContactIconsList } from './ContactIcons';
 import { OfficeHoursTable } from './OfficeHoursTable';
-//import bg from './bg.svg';
 import classes from './GetInTouch.module.css';
 
 export function GetInTouch() {
@@ -24,7 +23,9 @@ export function GetInTouch() {
 
         <iframe style={{border:"none", borderRadius: "15px", width: "100%"}} src="https://frame.mapy.cz/s/kunetosona" ></iframe>
 
-{/*         <form className={classes.form} onSubmit={(event) => event.preventDefault()}>
+{/*       
+          //NICE TO HAVE - Kontaktní formulář přes mail
+          <form className={classes.form} onSubmit={(event) => event.preventDefault()}>
           <Text fz="lg" fw={700} className={classes.title}>
             Kontaktujte nás
           </Text>

@@ -1,20 +1,17 @@
-import { TextInput, Textarea, Button, Group, Box, FileInput, Modal, Text } from '@mantine/core';
+import { TextInput, Textarea, Button, Group, Box, Modal, Text } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useDisclosure } from '@mantine/hooks';
 import { useRef } from 'react';
 
-function ArticleForm({ title, description, body, onSubmit, articleId, onDeactivate }) {
+function FaqForm({ question, answer, onSubmit, faqId, onDeactivate }) {
   const form = useForm({
     initialValues: {
-      title: title,
-      description: description,
-      body: body,
-      image: null,
+      question: question,
+      answer: answer,
     },
     validate: {
-      title: (value) => (value ? null : 'Název je povinný'),
-      description: (value) => (value ? null : 'Popis je povinný'),
-      body: (value) => (value ? null : 'Text článku je povinný'),
+      question: (value) => (value ? null : 'Otázka je povinná'),
+      answer: (value) => (value ? null : 'Odpověď je povinná'),
     },
   });
 
@@ -41,49 +38,33 @@ function ArticleForm({ title, description, body, onSubmit, articleId, onDeactiva
       <form ref={formRef} onSubmit={form.onSubmit(handleSubmit)}>
         <TextInput
           withAsterisk
-          label="Název"
-          placeholder="Název článku"
-          {...form.getInputProps('title')}
+          label="Otázka"
+          placeholder="Vložte otázku"
+          {...form.getInputProps('question')}
           required
-        />
-        <TextInput
-          withAsterisk
-          label="Popis"
-          placeholder="Krátký popis k zobrazení v náhledu"
-          {...form.getInputProps('description')}
-          required
-        />
-        <FileInput
-          label="Obrázek článku"
-          placeholder="Vložit ilustrační obrázek"
-          accept="image/png,image/jpeg"
-          onChange={(file) => form.setFieldValue('image', file)}
-          {...form.getInputProps('image')}
         />
         <Textarea
           withAsterisk
-          placeholder="Text článku"
-          label="Hlavní text článku"
-          autosize
-          minRows={7}
-          {...form.getInputProps('body')}
+          label="Odpověď"
+          placeholder="Vložte odpověď"
+          {...form.getInputProps('answer')}
           required
         />
         <Group position="right" mt="md" justify={justifyBtns}>
           {onDeactivate === false ? null : (
             <>
             <Button color="red" onClick={openDelete}>
-              Odstranit článek
+              Odstranit otázku
             </Button>
             <Modal 
               opened={openedDelete}
               onClose={closeDelete}
-              title="Opravdu chcete smazat článek?"
+              title="Opravdu chcete smazat otázku?"
               justify="space-between"
               centered
             >
             <Text>
-              Pokud stisknete <strong>Smazat článek</strong>, článek bude odstraněn.
+              Pokud stisknete <strong>Smazat otázku</strong>, otázka bude odstraněna.
             </Text>
             <Group justify="space-between" my="lg">
             <Button color="gray" onClick={closeDelete}>
@@ -91,9 +72,9 @@ function ArticleForm({ title, description, body, onSubmit, articleId, onDeactiva
             </Button>
             <Button
               color="red"
-              onClick={() => onDeactivate({ articleId })}
+              onClick={() => onDeactivate({ faqId })}
             >
-              Smazat článek
+              Smazat otázku
             </Button>
           </Group>
             </Modal>
@@ -106,12 +87,12 @@ function ArticleForm({ title, description, body, onSubmit, articleId, onDeactiva
         <Modal
           opened={openedSubmit}
           onClose={closeSubmit}
-          title="Opravdu chcete zveřejnit článek?"
+          title="Opravdu chcete zveřejnit novou otázku?"
           justify="space-between"
           centered
         >
           <Text>
-            Pokud stisknete <strong>Ano</strong>, článek bude zveřejněn.
+            Pokud stisknete <strong>Ano</strong>, otázka bude zveřejněna.
           </Text>
           <Group justify="space-between" my="lg">
             <Button color="gray" onClick={closeSubmit}>
@@ -132,4 +113,4 @@ function ArticleForm({ title, description, body, onSubmit, articleId, onDeactiva
   );
 }
 
-export default ArticleForm;
+export default FaqForm;

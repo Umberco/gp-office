@@ -1,8 +1,11 @@
 import * as React from 'react';
-import { Container, Title, Text, Button } from '@mantine/core';
+import { Container, Title, Text, Button, Flex } from '@mantine/core';
 import classes from './HeroImageRight.module.css';
+import { IconPhone } from '@tabler/icons-react';
+import { useNavigate } from 'react-router-dom';
 
 export function HeroImageRight() {
+  const navigate = useNavigate()
   return (
     <div className={classes.root}>
       <Container size="md" px="xl">
@@ -29,8 +32,12 @@ export function HeroImageRight() {
               size="xl"
               className={classes.control}
               mt={40}
+              radius="lg"
+              onClick={() => navigate("/contact")}
             >
-              Chci se objednat
+              <Flex justify="space-between" gap="xs">
+                <IconPhone/><Text>+420</Text><strong>777 888 999</strong>
+              </Flex>
             </Button>
           </div>
         </div>

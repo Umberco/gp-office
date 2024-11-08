@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
 import {Outlet, useLocation} from "react-router-dom"
-import { Link } from 'react-router-dom';
 
 import { ClientsMenu } from '../clients_zone/ClientsMenu';
 

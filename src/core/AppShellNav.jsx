@@ -21,7 +21,6 @@ export function AppShellNav() {
     <AppShell
       header={{ height: 60 }}
       navbar={{ width: 300, breakpoint: 'sm', collapsed: { desktop: true, mobile: !opened } }}
-      //padding="md" -> removed because it made white borders around hero image
     >
       <AppShell.Header>
         <Container py="xs">

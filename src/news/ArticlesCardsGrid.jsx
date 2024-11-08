@@ -7,15 +7,6 @@ import classes from './ArticlesCardsGrid.module.css';
 
 import DateFormat from "./DateFormat"
 import photoPlaceholder from "../assets/fp_placeholder_photo.svg";
-import covidImg from "../assets/fp_vaccination_covid.jpg";
-import newPatientsImg from "../assets/fp_new_patients.jpg";
-import preventiveImg from "../assets/fp_preventive_programs.jpg";
-
-const images = {
-  "ockovani-proti-covid-19": covidImg,
-  "prijimame-nove-pacienty": newPatientsImg,
-  "preventivni-programy": preventiveImg
-}
 
 export function ArticlesCardsGrid({home}) {
 
