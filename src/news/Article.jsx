@@ -84,6 +84,7 @@ function Article() {
                 return
             }
             setArticles(data)
+            setErrorText(null)
     }
 
     const addArticle = async ({values}) =>{
@@ -139,6 +140,7 @@ function Article() {
             setShowInsert(false);
             setIsEdited(false);
             setHideInsertBtn(false);
+            setErrorText(null)
           } catch (err) {
             console.error("Unexpected error:", err);
           }
@@ -207,6 +209,7 @@ function Article() {
             setShowInsert(false)
             setIsEdited(false)
             setHideInsertBtn(false)
+            setErrorText(null)
           } catch (err) {
             console.error("Unexpected error:", err);
             setErrorText("Unexpected error:", err.message)
@@ -229,6 +232,7 @@ function Article() {
               setShowInsert(false)
               setIsEdited(false)
               setHideInsertBtn(false)
+              setErrorText(null)
               navigate('/news')
               location.reload();
             } catch (err) {
@@ -255,7 +259,7 @@ function Article() {
         {isAuth
             ?(hideInsertBtn === false
             ?<Button onClick={() => {setShowInsert(true); setHideInsertBtn(true)}} color='#4FC4E3' my="lg">Vložit nový článek</Button>
-            :<Button onClick={() => {setShowInsert(false); setIsEdited(false); setHideInsertBtn(false)}} color='grey' my="lg">Zpět</Button>
+            :<Button onClick={() => {setShowInsert(false); setIsEdited(false); setHideInsertBtn(false); setErrorText(null)}} color='grey' my="lg">Zpět</Button>
             )
             : <></>
         }
@@ -269,7 +273,14 @@ function Article() {
                 onSubmit={addArticle}
                 onDeactivate={false}
               />
-
+                {
+                  errorText === null ? <></> 
+                  :(
+                  <Alert variant="light" color="red" title="Chyba" my="md">
+                    {errorText}
+                  </Alert>
+                  )
+                }
               <Divider my="md" size="md" label="Další články"></Divider>
               </>
             : articles === null
@@ -285,18 +296,28 @@ function Article() {
                     articleId={articles.id}
                     onDeactivate={deactivateArticle}
                 />
+                {
+                  errorText === null ? <></> 
+                  :(
+                  <Alert variant="light" color="red" title="Chyba" my="md">
+                    {errorText}
+                  </Alert>
+                  )
+                }
                 <Divider my="md" size="md" label="Další články"></Divider>
                 </>
-                : <ArticleDetail article={articles} onEdit={() => {setIsEdited(true); setHideInsertBtn(true)}}/>
+                :<>
+                {
+                  errorText === null ? <></> 
+                  :(
+                  <Alert variant="light" color="red" title="Chyba" my="md">
+                    {errorText}
+                  </Alert>
+                  )
+                }
+                <ArticleDetail article={articles} onEdit={() => {setIsEdited(true); setHideInsertBtn(true)}}/>
+                </>
               )
-        }
-        {
-          errorText === null ? <></> 
-          :(
-          <Alert variant="light" color="red" title="Chyba">
-            {errorText}
-          </Alert>
-          )
         }
         </Container>
         </>
