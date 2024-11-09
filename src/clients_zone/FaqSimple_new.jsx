@@ -1,9 +1,9 @@
-import { Container, Title, Accordion, Button, Divider, Alert } from '@mantine/core';
+import { Container, Title, Accordion, Button, Divider, Alert, Flex } from '@mantine/core';
 import classes from './FaqSimple.module.css';
 import { useEffect, useState } from 'react';
 import { supabase } from '../Supabase';
 import { useAuth } from '../context/AuthContext';
-import { IconClipboardPlus } from '@tabler/icons-react';
+import { IconClipboardPlus, IconEdit } from '@tabler/icons-react';
 
 import FaqForm from './FaqForm.jsx'
 
@@ -24,6 +24,9 @@ export function FaqSimple() {
   const [faqs, setFaqs] = useState(null)
   const [faq, setFaq] = useState(null)
   const [isEdited, setIsEdited] = useState(false)
+  const [editedFaqId, setEditedFaqId] = useState(null)
+  const [editedFaqAnswer, setEditedFaqAnswer] = useState("")
+  const [editedFaqQuestion, setEditedFaqQuestion] = useState("")
   const [showInsert, setShowInsert] =  useState(false)
   const [hideInsertBtn, setHideInsertBtn] = useState(false)
   const [errorText, setErrorText] = useState(null)
@@ -47,6 +50,7 @@ export function FaqSimple() {
                 return
             }
             console.log(data)
+            setErrorText(null)
             setFaqs(data)
     }
 
@@ -60,10 +64,36 @@ export function FaqSimple() {
 
           if (error !== null) {
               console.log(error.message)
+              setErrorText(error.message)
               return
           }
-          console.log(data)
           getFaqs()
+          setShowInsert(false);
+          setIsEdited(false);
+          setHideInsertBtn(false);
+          setErrorText(null)
+  }
+
+  const editFaq = async ({values, faqId}) =>{
+    const {error} = await supabase
+        .from("faqs")
+        .update({
+          question: values.question,
+          answer: values.answer,
+        })
+        .eq("id", faqId)
+
+        if (error !== null) {
+            console.log(error.message)
+            setErrorText(error.message)
+            return
+        }
+        setShowInsert(false)
+        setIsEdited(false)
+        setHideInsertBtn(false)
+        setErrorText(null)
+        getFaqs()
+
   }
 
     const deactivateFaq = async ({faqId}) =>{
@@ -74,9 +104,13 @@ export function FaqSimple() {
 
           if (error !== null) {
               console.log(error.message)
+              setErrorText(error.message)
               return
           }
-          console.log(data)
+          setShowInsert(false)
+          setIsEdited(false)
+          setHideInsertBtn(false)
+          setErrorText(null)
           getFaqs()
   }
 
@@ -98,7 +132,7 @@ export function FaqSimple() {
                       question={""}
                       answer={""}
                       onSubmit={addFaq}
-                      onDeactivate={deactivateFaq}
+                      onDeactivate={false}
                     />
                       {
                         errorText === null ? <></> 
@@ -115,10 +149,10 @@ export function FaqSimple() {
                       isEdited
                       ?<>
                       <FaqForm
-                          question={faq.question}
-                          answer={faq.answer}
-                          onSubmit={addFaq}
-                          faqId={faq.id}
+                          question={editedFaqQuestion}
+                          answer={editedFaqAnswer}
+                          onSubmit={editFaq}
+                          faqId={editedFaqId}
                           onDeactivate={deactivateFaq}
                       />
                       {
@@ -146,9 +180,15 @@ export function FaqSimple() {
       }
       <Accordion variant="separated">
       {faqs?.map((faq) => (
-        <Accordion.Item className={classes.item} value="reset-password">
+        <Accordion.Item key={faq.id} value={faq.question} className={classes.item}>
           <Accordion.Control>{faq.question}</Accordion.Control>
           <Accordion.Panel>{faq.answer}</Accordion.Panel>
+          {isAuth
+          ?<Flex justify='flex-end'>
+            <Button onClick={() => {setIsEdited(true); setHideInsertBtn(true); setEditedFaqAnswer(faq.answer); setEditedFaqId(faq.id); setEditedFaqQuestion(faq.question)}} color='#4FC4E3'><IconEdit/>Editovat</Button>
+          </Flex>
+          :<></>
+          }
         </Accordion.Item>
       ))
       }

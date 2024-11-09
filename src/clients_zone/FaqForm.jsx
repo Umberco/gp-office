@@ -22,8 +22,8 @@ function FaqForm({ question, answer, onSubmit, faqId, onDeactivate }) {
 
   const handleSubmit = (values) => {
     console.log(values);
-    onSubmit({ values, articleId });
-    close();
+    closeSubmit();
+    onSubmit({ values, faqId });
   };
 
   const handleOpenModal = () => {
@@ -72,7 +72,7 @@ function FaqForm({ question, answer, onSubmit, faqId, onDeactivate }) {
             </Button>
             <Button
               color="red"
-              onClick={() => onDeactivate({ faqId })}
+              onClick={() => {closeDelete(); onDeactivate({ faqId })}}
             >
               Smazat otázku
             </Button>

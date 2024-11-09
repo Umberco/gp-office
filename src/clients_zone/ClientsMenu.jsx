@@ -40,8 +40,8 @@ import {
   export function ClientsMenu() {
     const theme = useMantineTheme();
     const features = mockdata.map((feature) => (
-      <Link to={feature.link} className={classes.navLink}>
-      <Card key={feature.title} shadow="md" radius="md" className={classes.card} padding="xl">
+      <Link key={feature.title} to={feature.link} className={classes.navLink}>
+      <Card shadow="md" radius="md" className={classes.card} padding="xl">
         <feature.icon
           style={{ width: rem(50), height: rem(50) }}
           stroke={2}

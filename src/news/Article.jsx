@@ -225,7 +225,7 @@ function Article() {
               setIsEdited(false)
               setHideInsertBtn(false)
               setErrorText(null)
-              navigate('/clients/faq')
+              navigate('/news')
               location.reload();
             } catch (err) {
               console.error("Unexpected error:", err);
