@@ -1,10 +1,10 @@
-import {useState} from "react"
-import { supabase } from "../Supabase"
-import { useToggle, upperFirst } from "@mantine/hooks"
-import { useForm } from "@mantine/form"
-import { useNavigate } from "react-router-dom"
+import { useState } from "react";
+import { supabase } from "../Supabase";
+import { useToggle, upperFirst } from "@mantine/hooks";
+import { useForm } from "@mantine/form";
+import { useNavigate } from "react-router-dom";
 
-import {useAuth} from "../context/AuthContext"
+import { useAuth } from "../context/AuthContext";
 
 import {
   TextInput,
@@ -17,75 +17,71 @@ import {
   Checkbox,
   Anchor,
   Stack,
-  Container
-} from "@mantine/core"
+  Container,
+} from "@mantine/core";
 
 export function AuthenticationForm(props) {
-  const [type, toggle] = useToggle(["login", "register"])
-  const {user, isAuth, login, logout} = useAuth()
-  const navigate = useNavigate()
+  const [type, toggle] = useToggle(["login", "register"]);
+  const { user, isAuth, login, logout } = useAuth();
+  const navigate = useNavigate();
 
   const form = useForm({
     initialValues: {
       email: "",
       name: "",
       password: "",
-      terms: true
+      terms: true,
     },
-    
 
     validate: {
-      email: val => (/^\S+@\S+$/.test(val) ? null : "Neplatný email"),
-      password: val =>
-        val.length <= 6 ? "Heslo musí obsahovat alespoň 6 znaků" : null
-    }
-  })
-
+      email: (val) => (/^\S+@\S+$/.test(val) ? null : "Neplatný email"),
+      password: (val) =>
+        val.length <= 6 ? "Heslo musí obsahovat alespoň 6 znaků" : null,
+    },
+  });
 
   const handleSubmit = async (event) => {
-    event.preventDefault()
-    console.log("Prihlasuji", form.values.email)
+    event.preventDefault();
+    console.log("Prihlasuji", form.values.email);
 
-    const {data, error} = login(form.values.email, form.values.password)
+    const { data, error } = login(form.values.email, form.values.password);
 
     if (!error && data) {
-        console.log(data)
+      console.log(data);
     }
 
-    if (error){
-        console.log(error)
+    if (error) {
+      console.log(error);
     }
-    navigate('/')
-
-  }
-
-
+    navigate("/");
+  };
 
   return (
     <Container size={420} my={40}>
-    <Paper radius="md" p="xl" shadow="md" withBorder {...props}>
-        {isAuth
-        ?(
-            <>
+      <Paper radius="md" p="xl" shadow="md" withBorder {...props}>
+        {isAuth ? (
+          <>
             <Text size="lg" ta="center" fw={500}>
-            Jste přihlášen/a jako {user.email}
+              Jste přihlášen/a jako {user.email}
             </Text>
             <Divider labelPosition="center" my="lg" />
             <Group justify="center">
-            <Button onClick={logout} radius="xl" color="#4FC4E3"> 
-            Odhlásit se
-            </Button>
+              <Button onClick={logout} radius="xl" color="#4FC4E3">
+                Odhlásit se
+              </Button>
             </Group>
-            
-            </>
-        )
-        :(
-            <>
+          </>
+        ) : (
+          <>
             <Text size="lg" ta="center" fw={500}>
               Vítejte v administrační zóně
             </Text>
 
-            <Divider label="Zadejte své přihlašovací údaje" labelPosition="center" my="lg" />
+            <Divider
+              label="Zadejte své přihlašovací údaje"
+              labelPosition="center"
+              my="lg"
+            />
 
             <form onSubmit={handleSubmit}>
               <Stack>
@@ -94,7 +90,7 @@ export function AuthenticationForm(props) {
                     label="Name"
                     placeholder="Your name"
                     value={form.values.name}
-                    onChange={event =>
+                    onChange={(event) =>
                       form.setFieldValue("name", event.currentTarget.value)
                     }
                     radius="md"
@@ -106,7 +102,7 @@ export function AuthenticationForm(props) {
                   label="Email"
                   placeholder="email@gmail.com"
                   value={form.values.email}
-                  onChange={event =>
+                  onChange={(event) =>
                     form.setFieldValue("email", event.currentTarget.value)
                   }
                   error={form.errors.email && "Invalid email"}
@@ -118,7 +114,7 @@ export function AuthenticationForm(props) {
                   label="Heslo"
                   placeholder="Vaše heslo"
                   value={form.values.password}
-                  onChange={event =>
+                  onChange={(event) =>
                     form.setFieldValue("password", event.currentTarget.value)
                   }
                   error={
@@ -132,15 +128,15 @@ export function AuthenticationForm(props) {
                   <Checkbox
                     label="I accept terms and conditions"
                     checked={form.values.terms}
-                    onChange={event =>
+                    onChange={(event) =>
                       form.setFieldValue("terms", event.currentTarget.checked)
                     }
                   />
                 )}
               </Stack>
-            
+
               <Group justify="flex-end" mt="xl">
-{/* //Registraci zatím nedělám, jenom pro administraci nebude třeba
+                {/* //Registraci zatím nedělám, jenom pro administraci nebude třeba
                   <Anchor
                   component="button"
                   type="button"
@@ -157,12 +153,9 @@ export function AuthenticationForm(props) {
                 </Button>
               </Group>
             </form>
-                  </>
-              )
-          
-              }
-
-    </Paper>
+          </>
+        )}
+      </Paper>
     </Container>
-  )
+  );
 }
