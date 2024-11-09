@@ -31,7 +31,7 @@ import {
     {
       title: 'Anamnéza',
       description:
-        'Zde můžete vyplnit a aktualizovat svou zdravotní anamnézu. Tyto informace nám pomohou lépe porozumět vašemu zdravotnímu stavu a poskytnout vám co nejlepší péči.',
+        'Zde můžete vyplnit a aktualizovat svou zdravotní anamnézu. Informace nám pomohou porozumět vašemu zdravotnímu stavu a zajistit vám co nejlepší péči.',
       icon: IconHeartbeat,
       link: "/clients/anamnesis"
     },
@@ -73,7 +73,7 @@ import {
             Zde najdete všechny potřebné informace a nástroje pro pohodlnou správu svého zdraví. Naše klientská zóna je rozdělena do tří hlavních sekcí:
         </Text>
   
-        <SimpleGrid cols={{ base: 1, md: 3 }} spacing="xl" mt={50}>
+        <SimpleGrid cols={{ base: 1, md: 3 }} spacing="xl" mt={50} my="lg">
           {features}
         </SimpleGrid>
       </Container>

@@ -102,7 +102,7 @@ function Article() {
         }
         uploadedFileName = dataImg.fullPath;
         }
-            
+        //END OF IMAGE HANDLE 
             console.log(values);
             const { error: errorArticle } = await supabase
               .from("articles")
@@ -163,6 +163,7 @@ function Article() {
             }
             uploadedFileName = dataImg.fullPath;
           }
+      //END OF IMAGE HANDLE
         const {error} =  await supabase
             .from("articles")
             .update({
@@ -277,7 +278,17 @@ function Article() {
               <Divider my="md" size="md" label="Další články"></Divider>
               </>
             : articles === null
-            ? <Loader color='cyan' size="lg" type='dots'/>
+            ? (<>
+              <Loader color='cyan' size="lg" type='dots'/>
+              {errorText === null ? <></> 
+              :(
+              <Alert variant="light" color="red" title="Chyba" my="md">
+                  Chyba při načítání. Článek byl smazán nebo neexistuje.<br></br><br></br>
+                  {errorText}
+              </Alert>
+              )}
+              </>
+            )
             : (
                 isEdited
                 ?<>

@@ -75,7 +75,7 @@ export function AppShellNav() {
               <Link to="contact" className={classes.navLink} onClick={toggle}><UnstyledButton className={classes.control}>KONTAKT</UnstyledButton></Link>
       </AppShell.Navbar>
 
-      <AppShell.Main pb="md">
+      <AppShell.Main pb="md" mb="lg">
         <Outlet />
 
       </AppShell.Main>

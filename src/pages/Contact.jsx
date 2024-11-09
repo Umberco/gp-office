@@ -6,7 +6,7 @@ import { GetInTouch } from '../contact/GetInTouch';
 function Contact() {
     return (  
         <>
-        <Container px="xl">
+        <Container px="xl" mb="lg">
             <GetInTouch />
         </Container>
         </>

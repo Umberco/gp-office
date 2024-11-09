@@ -24,9 +24,9 @@ function ArticleForm({ title, description, body, onSubmit, articleId, onDeactiva
   const formRef = useRef(null);
 
   const handleSubmit = (values) => {
-    console.log(values);
+    console.log(values)
+    closeSubmit();
     onSubmit({ values, articleId });
-    close();
   };
 
   const handleOpenModal = () => {

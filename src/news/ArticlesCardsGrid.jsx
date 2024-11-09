@@ -1,7 +1,7 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
-import { SimpleGrid, Card, Image, Text, Container, AspectRatio, Loader } from '@mantine/core';
+import { SimpleGrid, Card, Image, Text, Container, AspectRatio, Loader, Alert } from '@mantine/core';
 import { supabase } from '../Supabase';
 import classes from './ArticlesCardsGrid.module.css';
 
@@ -11,6 +11,7 @@ import photoPlaceholder from "../assets/fp_placeholder_photo.svg";
 export function ArticlesCardsGrid({home}) {
 
     const  [articles, setArticles] = useState(null)
+    const [errorText, setErrorText] = useState(null)
     var pathNews = ""
     var articlesCount = 9
     home ? pathNews = "/news/" : pathNews = ""
@@ -33,18 +34,17 @@ export function ArticlesCardsGrid({home}) {
 
             if (error !== null) {
                 console.log(error.message)
+                setErrorText(error.message)
                 return
             }
             //console.log(data)
             setArticles(data)
     }
-  
 
   const cards = articles?.map((article) => (
     <Card key={article.slug} p="md" radius="md" component={Link} to={pathNews + article.slug} className={classes.card} onClick={() => window.scrollTo(0,0)}>
       <AspectRatio ratio={1920 / 1080}>
-        <Image src={article.image !== null ? import.meta.env.VITE_SUPABASE_STORAGE + article.image : photoPlaceholder} className={classes.articleImg}/>
-        {/* <Image src={images[article.slug] ?  images[article.slug] : photoPlaceholder} fit={images[article.slug] ? "cover" : "object-fit"} radius="md" /> */}
+        <Image src={article.image !== null ? import.meta.env.VITE_SUPABASE_STORAGE + article.image : photoPlaceholder} className={classes.articleImg} fit={article.image ? "cover" : "object-fit"} radius="md"/>
       </AspectRatio>
       <Text c="dimmed" size="xs" tt="uppercase" fw={700} mt="md">
         <DateFormat dateTime={article.created_at}/>
@@ -62,7 +62,16 @@ export function ArticlesCardsGrid({home}) {
     <Container py="xl">
       {
         articles === null
-        ? <Loader color='cyan' size="lg" type='dots'/>
+        ?(<>
+        <Loader color='cyan' size="lg" type='dots'/>
+        {errorText === null ? <></> 
+          :(
+          <Alert variant="light" color="red" title="Chyba" my="md">
+              Chyba při načítání. Zkontrolujte připojení k internetu a zkuste to prosím později.<br></br><br></br>
+              {errorText}
+          </Alert>
+          )}
+          </>)
         :<SimpleGrid cols={{base: 1, sm: 3}}>{cards}</SimpleGrid>
       }
     </Container>
