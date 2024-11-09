@@ -36,10 +36,15 @@ npm run build
 This project uses the following technologies and libraries:
 
 **React:** A JavaScript library for building user interfaces.
+
 **Vite:** A build tool that provides a faster and leaner development experience for modern web projects.
+
 **Mantine:** A React component library with a focus on usability and accessibility.
+
 **Tabler:** A set of free and open-source components and templates for building responsive web applications.
+
 **Supabase:** An open-source Firebase alternative that provides backend services.
+
 **date-fns:** A modern JavaScript date utility library.
 
 ## Contributing
