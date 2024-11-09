@@ -1,46 +1,50 @@
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import {
-    Badge,
-    Group,
-    Title,
-    Text,
-    Card,
-    SimpleGrid,
-    Container,
-    rem,
-    useMantineTheme,
-  } from '@mantine/core';
-  import { IconCalendarClock, IconHelpHexagon, IconHeartbeat } from '@tabler/icons-react';
-  import classes from './ClientsMenu.module.css';
-  
-  const mockdata = [
-    {
-      title: 'Objednání - (PŘIPRAVUJEME)',
-      description:
-        'Snadno a rychle si zde můžete domluvit termín návštěvy u našeho praktického lékaře. Vyberte si čas, který vám nejlépe vyhovuje, a my se postaráme o zbytek.',
-      icon: IconCalendarClock,
-      link: '/clients'
-    },
-    {
-      title: 'Otázky a odpovědi',
-      description:
-        'Máte dotazy ohledně svého zdraví nebo našich služeb? V této sekci najdete odpovědi na nejčastější otázky. Pokud nenajdete, co hledáte, neváhejte nás kontaktovat.',
-      icon: IconHelpHexagon,
-      link: "/clients/faq"
-    },
-    {
-      title: 'Anamnéza',
-      description:
-        'Zde můžete vyplnit a aktualizovat svou zdravotní anamnézu. Informace nám pomohou porozumět vašemu zdravotnímu stavu a zajistit vám co nejlepší péči.',
-      icon: IconHeartbeat,
-      link: "/clients/anamnesis"
-    },
-  ];
-  
-  export function ClientsMenu() {
-    const theme = useMantineTheme();
-    const features = mockdata.map((feature) => (
-      <Link key={feature.title} to={feature.link} className={classes.navLink}>
+  Badge,
+  Group,
+  Title,
+  Text,
+  Card,
+  SimpleGrid,
+  Container,
+  rem,
+  useMantineTheme,
+} from "@mantine/core";
+import {
+  IconCalendarClock,
+  IconHelpHexagon,
+  IconHeartbeat,
+} from "@tabler/icons-react";
+import classes from "./ClientsMenu.module.css";
+
+const mockdata = [
+  {
+    title: "Objednání - (PŘIPRAVUJEME)",
+    description:
+      "Snadno a rychle si zde můžete domluvit termín návštěvy u našeho praktického lékaře. Vyberte si čas, který vám nejlépe vyhovuje, a my se postaráme o zbytek.",
+    icon: IconCalendarClock,
+    link: "/clients",
+  },
+  {
+    title: "Otázky a odpovědi",
+    description:
+      "Máte dotazy ohledně svého zdraví nebo našich služeb? V této sekci najdete odpovědi na nejčastější otázky. Pokud nenajdete, co hledáte, neváhejte nás kontaktovat.",
+    icon: IconHelpHexagon,
+    link: "/clients/faq",
+  },
+  {
+    title: "Anamnéza",
+    description:
+      "Zde můžete vyplnit a aktualizovat svou zdravotní anamnézu. Informace nám pomohou porozumět vašemu zdravotnímu stavu a zajistit vám co nejlepší péči.",
+    icon: IconHeartbeat,
+    link: "/clients/anamnesis",
+  },
+];
+
+export function ClientsMenu() {
+  const theme = useMantineTheme();
+  const features = mockdata.map((feature) => (
+    <Link key={feature.title} to={feature.link} className={classes.navLink}>
       <Card shadow="md" radius="md" className={classes.card} padding="xl">
         <feature.icon
           style={{ width: rem(50), height: rem(50) }}
@@ -54,28 +58,29 @@ import {
           {feature.description}
         </Text>
       </Card>
-      </Link>
-    ));
-  
-    return (
-      <Container size="lg" py="xl">
-        <Group justify="center">
-          <Badge variant="filled" size="lg" color='cyan'>
-            KLIENTSKÁ ZÓNA
-          </Badge>
-        </Group>
-  
-        <Title order={2} className={classes.title} ta="center" mt="sm">
-          Víteje v naší klientské zóně
-        </Title>
-  
-        <Text c="dimmed" className={classes.description} ta="center" mt="md">
-            Zde najdete všechny potřebné informace a nástroje pro pohodlnou správu svého zdraví. Naše klientská zóna je rozdělena do tří hlavních sekcí:
-        </Text>
-  
-        <SimpleGrid cols={{ base: 1, md: 3 }} spacing="xl" mt={50} my="lg">
-          {features}
-        </SimpleGrid>
-      </Container>
-    );
-  }
+    </Link>
+  ));
+
+  return (
+    <Container size="lg" py="xl">
+      <Group justify="center">
+        <Badge variant="filled" size="lg" color="cyan">
+          KLIENTSKÁ ZÓNA
+        </Badge>
+      </Group>
+
+      <Title order={2} className={classes.title} ta="center" mt="sm">
+        Víteje v naší klientské zóně
+      </Title>
+
+      <Text c="dimmed" className={classes.description} ta="center" mt="md">
+        Zde najdete všechny potřebné informace a nástroje pro pohodlnou správu
+        svého zdraví. Naše klientská zóna je rozdělena do tří hlavních sekcí:
+      </Text>
+
+      <SimpleGrid cols={{ base: 1, md: 3 }} spacing="xl" mt={50} my="lg">
+        {features}
+      </SimpleGrid>
+    </Container>
+  );
+}

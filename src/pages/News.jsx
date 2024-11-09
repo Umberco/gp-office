@@ -1,21 +1,18 @@
-import React from 'react';
-import { Outlet } from 'react-router-dom';
-import { Container } from "@mantine/core"
+import React from "react";
+import { Outlet } from "react-router-dom";
+import { Container } from "@mantine/core";
 
-import { ArticlesCardsGrid } from '../news/ArticlesCardsGrid';
+import { ArticlesCardsGrid } from "../news/ArticlesCardsGrid";
 
 function News() {
-    return ( 
+  return (
     <>
-    <Container>
-    <Outlet/>
-    <ArticlesCardsGrid home={false}>
-
-    </ArticlesCardsGrid>
-
-    </Container>
-    </> 
-);
+      <Container>
+        <Outlet />
+        <ArticlesCardsGrid home={false}></ArticlesCardsGrid>
+      </Container>
+    </>
+  );
 }
 
 export default News;

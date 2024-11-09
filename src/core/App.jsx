@@ -22,7 +22,6 @@ import Admin from "../pages/Admin"
 //subpages
 import Article from "../news/Article";
 import FaqSimple from "../clients_zone/FaqSimple";
-import FaqSimple_new from "../clients_zone/FaqSimple_new";
 import Anamnesis from "../clients_zone/Anamnesis";
 
 
@@ -57,7 +56,7 @@ function App() {
               <Route path=":articleId" element={<Article />}/>
             </Route>
             <Route path="clients" element={<Clients />}>
-              <Route path="faq" element={<FaqSimple_new />} />
+              <Route path="faq" element={<FaqSimple />} />
               <Route path="anamnesis" element={<Anamnesis />} />
             </Route>
             <Route path="pricing" element={<Pricing />}/>

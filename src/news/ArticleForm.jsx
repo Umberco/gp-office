@@ -1,9 +1,25 @@
-import { TextInput, Textarea, Button, Group, Box, FileInput, Modal, Text } from '@mantine/core';
-import { useForm } from '@mantine/form';
-import { useDisclosure } from '@mantine/hooks';
-import { useRef } from 'react';
+import {
+  TextInput,
+  Textarea,
+  Button,
+  Group,
+  Box,
+  FileInput,
+  Modal,
+  Text,
+} from "@mantine/core";
+import { useForm } from "@mantine/form";
+import { useDisclosure } from "@mantine/hooks";
+import { useRef } from "react";
 
-function ArticleForm({ title, description, body, onSubmit, articleId, onDeactivate }) {
+function ArticleForm({
+  title,
+  description,
+  body,
+  onSubmit,
+  articleId,
+  onDeactivate,
+}) {
   const form = useForm({
     initialValues: {
       title: title,
@@ -12,19 +28,21 @@ function ArticleForm({ title, description, body, onSubmit, articleId, onDeactiva
       image: null,
     },
     validate: {
-      title: (value) => (value ? null : 'Název je povinný'),
-      description: (value) => (value ? null : 'Popis je povinný'),
-      body: (value) => (value ? null : 'Text článku je povinný'),
+      title: (value) => (value ? null : "Název je povinný"),
+      description: (value) => (value ? null : "Popis je povinný"),
+      body: (value) => (value ? null : "Text článku je povinný"),
     },
   });
 
-  const justifyBtns = onDeactivate === false ? 'end' : 'space-between';
-  const [openedSubmit, { open: openSubmit, close: closeSubmit }] = useDisclosure(false);
-  const [openedDelete, { open: openDelete, close: closeDelete }] = useDisclosure(false);
+  const justifyBtns = onDeactivate === false ? "end" : "space-between";
+  const [openedSubmit, { open: openSubmit, close: closeSubmit }] =
+    useDisclosure(false);
+  const [openedDelete, { open: openDelete, close: closeDelete }] =
+    useDisclosure(false);
   const formRef = useRef(null);
 
   const handleSubmit = (values) => {
-    console.log(values)
+    console.log(values);
     closeSubmit();
     onSubmit({ values, articleId });
   };
@@ -43,22 +61,22 @@ function ArticleForm({ title, description, body, onSubmit, articleId, onDeactiva
           withAsterisk
           label="Název"
           placeholder="Název článku"
-          {...form.getInputProps('title')}
+          {...form.getInputProps("title")}
           required
         />
         <TextInput
           withAsterisk
           label="Popis"
           placeholder="Krátký popis k zobrazení v náhledu"
-          {...form.getInputProps('description')}
+          {...form.getInputProps("description")}
           required
         />
         <FileInput
           label="Obrázek článku"
           placeholder="Vložit ilustrační obrázek"
           accept="image/png,image/jpeg"
-          onChange={(file) => form.setFieldValue('image', file)}
-          {...form.getInputProps('image')}
+          onChange={(file) => form.setFieldValue("image", file)}
+          {...form.getInputProps("image")}
         />
         <Textarea
           withAsterisk
@@ -66,37 +84,38 @@ function ArticleForm({ title, description, body, onSubmit, articleId, onDeactiva
           label="Hlavní text článku"
           autosize
           minRows={7}
-          {...form.getInputProps('body')}
+          {...form.getInputProps("body")}
           required
         />
         <Group position="right" mt="md" justify={justifyBtns}>
           {onDeactivate === false ? null : (
             <>
-            <Button color="red" onClick={openDelete}>
-              Odstranit článek
-            </Button>
-            <Modal 
-              opened={openedDelete}
-              onClose={closeDelete}
-              title="Opravdu chcete smazat článek?"
-              justify="space-between"
-              centered
-            >
-            <Text>
-              Pokud stisknete <strong>Smazat článek</strong>, článek bude odstraněn.
-            </Text>
-            <Group justify="space-between" my="lg">
-            <Button color="gray" onClick={closeDelete}>
-              Zpět
-            </Button>
-            <Button
-              color="red"
-              onClick={() => onDeactivate({ articleId })}
-            >
-              Smazat článek
-            </Button>
-          </Group>
-            </Modal>
+              <Button color="red" onClick={openDelete}>
+                Odstranit článek
+              </Button>
+              <Modal
+                opened={openedDelete}
+                onClose={closeDelete}
+                title="Opravdu chcete smazat článek?"
+                justify="space-between"
+                centered
+              >
+                <Text>
+                  Pokud stisknete <strong>Smazat článek</strong>, článek bude
+                  odstraněn.
+                </Text>
+                <Group justify="space-between" my="lg">
+                  <Button color="gray" onClick={closeDelete}>
+                    Zpět
+                  </Button>
+                  <Button
+                    color="red"
+                    onClick={() => onDeactivate({ articleId })}
+                  >
+                    Smazat článek
+                  </Button>
+                </Group>
+              </Modal>
             </>
           )}
           <Button color="#4FC4E3" onClick={handleOpenModal}>

@@ -1,12 +1,32 @@
-import { Table } from '@mantine/core';
+import { Table } from "@mantine/core";
 
 const elements = [
-    { day: "Pondělí", ordinary: "7:00 - 11:00", scheduled: '11:00 - 13:00', visits: '14:00 - 16:00' },
-    { day: "Úterý", ordinary: "7:00 - 11:00", scheduled: '11:00 - 13:00', visits: '16:00 - 18:00' },
-    { day: "Středa", ordinary: "7:00 - 10:00", scheduled: '10:00 - 12:00', visits: ' ' },
-    { day: "Čtvrtek", ordinary: "7:00 - 11:00", scheduled: '11:00 - 13:00', visits: '14:00 - 16:00' },
-    { day: "Pátek", ordinary: "7:00 - 12:00", scheduled: ' ', visits: ' ' },
-  ];
+  {
+    day: "Pondělí",
+    ordinary: "7:00 - 11:00",
+    scheduled: "11:00 - 13:00",
+    visits: "14:00 - 16:00",
+  },
+  {
+    day: "Úterý",
+    ordinary: "7:00 - 11:00",
+    scheduled: "11:00 - 13:00",
+    visits: "16:00 - 18:00",
+  },
+  {
+    day: "Středa",
+    ordinary: "7:00 - 10:00",
+    scheduled: "10:00 - 12:00",
+    visits: " ",
+  },
+  {
+    day: "Čtvrtek",
+    ordinary: "7:00 - 11:00",
+    scheduled: "11:00 - 13:00",
+    visits: "14:00 - 16:00",
+  },
+  { day: "Pátek", ordinary: "7:00 - 12:00", scheduled: " ", visits: " " },
+];
 
 export function OfficeHoursTable() {
   const rows = elements.map((element) => (

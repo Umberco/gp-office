@@ -1,14 +1,9 @@
-import { format } from 'date-fns';
+import { format } from "date-fns";
 
+function DateFormat({ dateTime }) {
+  const formattedDate = format(new Date(dateTime), "dd.MM.yyyy");
 
-function DateFormat({dateTime}) {
-    const formattedDate = format(new Date(dateTime), 'dd.MM.yyyy');
-    
-    return ( 
-        <>
-        {formattedDate}
-        </>
-     );
+  return <>{formattedDate}</>;
 }
 
 export default DateFormat;

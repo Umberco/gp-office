@@ -1,7 +1,16 @@
-import { Paper, Text, TextInput, Textarea, Button, Group, SimpleGrid, Table } from '@mantine/core';
-import { ContactIconsList } from './ContactIcons';
-import { OfficeHoursTable } from './OfficeHoursTable';
-import classes from './GetInTouch.module.css';
+import {
+  Paper,
+  Text,
+/*   TextInput,
+  Textarea,
+  Button,
+  Group,
+  SimpleGrid,
+  Table, */
+} from "@mantine/core";
+import { ContactIconsList } from "./ContactIcons";
+import { OfficeHoursTable } from "./OfficeHoursTable";
+import classes from "./GetInTouch.module.css";
 
 export function GetInTouch() {
   return (
@@ -11,9 +20,9 @@ export function GetInTouch() {
           <Text fz="lg" fw={700} className={classes.title} c="#fff">
             Ordinační hodiny
           </Text>
-          
-          <OfficeHoursTable/>
-          
+
+          <OfficeHoursTable />
+
           <Text fz="lg" fw={700} className={classes.title} c="#fff">
             Ordinace Hradecká s.r.o.
           </Text>
@@ -21,9 +30,12 @@ export function GetInTouch() {
           <ContactIconsList />
         </div>
 
-        <iframe style={{border:"none", borderRadius: "15px", width: "100%"}} src="https://frame.mapy.cz/s/kunetosona" ></iframe>
+        <iframe
+          style={{ border: "none", borderRadius: "15px", width: "100%" }}
+          src="https://frame.mapy.cz/s/kunetosona"
+        ></iframe>
 
-{/*       
+        {/*       
           //NICE TO HAVE - Kontaktní formulář přes mail
           <form className={classes.form} onSubmit={(event) => event.preventDefault()}>
           <Text fz="lg" fw={700} className={classes.title}>
