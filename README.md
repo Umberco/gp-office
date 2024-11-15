@@ -1,6 +1,7 @@
 # GP-OFFICE
 
 GP-OFFICE is a web application designed for general practitioners. It provides a comprehensive platform for managing patient records, appointments, and other essential tasks.
+Currently running live -> https://ordinacehk.netlify.app/
 
 ## Table of Contents
 
